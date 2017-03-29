@@ -8,22 +8,29 @@
 #include "orbiter.h"
 #include <iostream>
 #include <stdlib.h> 
+#include <algorithm>
 
 class Brick {
 public:
-    Brick(int p, Point pn, Point px):position(p), pmin(pn), pmax(px){}
+    Brick(){};
+    Brick(int p, Point pn, Point px):position(p), pmin(pn), pmax(px){};
     ~Brick(){};
     int getPosition();
     void setPosition(Point pmn, Point pmx);
-    void initMesh();
-    Mesh getMesh(){return tempm;}
+    void initMesh(const Color clr = Color(1, 1, 1), const bool top = false, const bool right = false, const bool bottom = false, const bool left = false);
+    Mesh & getMesh(){return tempm;}
+    float getDistance(const Point & p);
+    bool isIn(const Point & p);
     
 
 private:
     int position;
     Point pmin;
     Point pmax;
+    Point pobj1;
+    Point pobj2;
     Mesh tempm;
+
 } ;
 
 

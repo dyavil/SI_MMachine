@@ -15,11 +15,12 @@ public:
     Terrain(){};
     Terrain(int h, int w, Point pmn, Point pmx);
     ~Terrain(){};
-    Mesh getMesh() {return mesh;}
+    Mesh & getMesh() {return mesh;}
     std::vector<Brick> getBricks();
-    Brick getBrickOn(Point pmin, Point pmax);
     int getSize(){return size;}
     void project(const Point& from, Point& to, Vector& n) const;
+    Brick & getBrickOn(const Point& p);
+    int whosAhead(const Point& p1, const Point& p2);
 
 private:
     Mesh mesh;
