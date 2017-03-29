@@ -19,6 +19,7 @@ public:
     std::vector<Brick> getBricks();
     Brick getBrickOn(Point pmin, Point pmax);
     int getSize(){return size;}
+    void project(const Point& from, Point& to, Vector& n) const;
 
 private:
     Mesh mesh;
