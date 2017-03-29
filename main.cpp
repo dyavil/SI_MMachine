@@ -81,7 +81,7 @@ int draw( )
     draw(car1, player1_pos, camera);
     Transform player2_pos = player2.transform();
     draw(car2, player2_pos, camera);
-    //std::cout << "Ahead : " << t.whosAhead(player1.getPos(), player2.getPos()) << " " << t.getBrickOn(player1.getPos()).getPosition() << std::endl;
+    std::cout << "Ahead : " << t.whosAhead(player1.getPos(), player2.getPos()) << ", p1 sur " << t.getBrickOn(player1.getPos()).getPosition() << std::endl;
     //std::cout << "p2 in : " << b2.getPosition() << std::endl;
 
     return 1;   // on continue, renvoyer 0 pour sortir de l'application
