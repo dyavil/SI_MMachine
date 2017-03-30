@@ -23,7 +23,7 @@ KeyboardController controller2('z', 's', 'q', 'd');
 
 int init( )
 {
-    t = Terrain(12, 12, Point(-20.f, -20.f, 0), Point(20.f, 20.f, 0));
+    t = Terrain(6, 6, Point(-20.f, -20.f, 0), Point(20.f, 20.f, 0));
     std::vector<Brick> tb = t.getBricks();
     camera = Orbiter();
     mesh = t.getMesh();
@@ -33,14 +33,17 @@ int init( )
     car2 = read_mesh("MMachine/mmachine.obj");
     car2.default_color(Color(0.0f, 0.f, 1.f));
 
+    Point car1min, car1max, car2min, car2max;
+    car1.bounds(car1min, car1max);
+    car2.bounds(car2min, car2max);
     player1.set_terrain(&t) ;
     player1.set_controller(&controller1) ;
-    player1.spawn_at(Point(-18.5,17.5,0), Vector(1,0,0)) ;
+    player1.spawn_at(Point(-18.5,17.5,0), Vector(1,0,0), car1min, car1max) ;
     player1.activate() ;
 
     player2.set_terrain(&t) ;
     player2.set_controller(&controller2) ;
-    player2.spawn_at(Point(-18.5,18.5,0), Vector(1,0,0)) ;
+    player2.spawn_at(Point(-18.5,18.5,0), Vector(1,0,0), car2min, car2max) ;
     player2.activate() ;
 
 
@@ -77,12 +80,12 @@ int draw( )
     	draw(meshes[i], camera);
     }
 
-    Transform player1_pos = player1.transform();
+    Transform player1_pos = player1.transform(t.getBrickOn(player1.getPos()));
     draw(car1, player1_pos, camera);
-    Transform player2_pos = player2.transform();
+    Transform player2_pos = player2.transform(t.getBrickOn(player2.getPos()));
     draw(car2, player2_pos, camera);
-    std::cout << "Ahead : " << t.whosAhead(player1.getPos(), player2.getPos()) << ", p1 sur " << t.getBrickOn(player1.getPos()).getPosition() << std::endl;
-    //std::cout << "p2 in : " << b2.getPosition() << std::endl;
+    //std::cout << "Ahead : " << t.whosAhead(player1.getPos(), player2.getPos()) << ", p1 sur " << t.getBrickOn(player1.getPos()).getPosition() << std::endl;
+    //std::cout << "p1 in : " << player1.getBox().getPmin() << std::endl;
 
     return 1;   // on continue, renvoyer 0 pour sortir de l'application
 }

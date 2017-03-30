@@ -20,10 +20,13 @@ Player::Player() :
   friction_(0.02f, 0.1f) //front and lateral friction for drift
 {}
 
-void Player::spawn_at(const Point& position, const Vector& direction) {
+void Player::spawn_at(const Point& position, const Vector& direction, const Point pmin, const Point pmax) {
   //reset position on terrain
   position_ = position ;
   direction_ = direction ;
+  float widthR = (pmax.x - pmin.x)/2.0;
+  float highR = (pmax.y - pmin.y)/2.0;
+  cbox = CollideBox(Point(position_.x - widthR, position_.y - highR, position_.z), Point(position_.x + widthR, position_.y + highR, position_.z));
   project(position_) ;
 
   //reset speed
@@ -33,7 +36,7 @@ void Player::spawn_at(const Point& position, const Vector& direction) {
   deactivate() ;
 }
 
-void Player::step() {
+void Player::step(Brick & brick) {
   //do not move if inactive
   if(!active_) return ;
 
@@ -110,15 +113,29 @@ void Player::step() {
   int time = SDL_GetTicks() ;
   Point new_position = position_ + (time - last_time_) * speed_ ;
 
-  //project
-  project(new_position) ;
 
-  //update speed taking projection into account
-  speed_ = (new_position - position_) / (time - last_time_) ;
-  speed_ = speed_ - dot(speed_, normal_)*normal_ ;
+  CollideBox temp = cbox;
+  temp.update((time - last_time_) * speed_);
 
-  //update the position
-  position_ = new_position ;
+  
+  if (brick.collideSide(temp))
+  {
+    //std::cout <<  " collide "<< std::endl;
+  }
+  else{
+    //cbox
+    cbox.update((time - last_time_) * speed_);
+
+    //project
+    project(new_position) ;
+
+    //update speed taking projection into account
+    speed_ = (new_position - position_) / (time - last_time_) ;
+    speed_ = speed_ - dot(speed_, normal_)*normal_ ;
+
+    //update the position
+    position_ = new_position ;
+  }
 
   //update time
   last_time_ = time ;
@@ -136,8 +153,8 @@ void Player::deactivate() {
   active_ = false ;
 }
 
-Transform Player::transform() {
-  step() ;
+Transform Player::transform(Brick & brick) {
+  step(brick) ;
   return Transform(direction_, cross(normal_, direction_), normal_, position_ - Point()) ;
 }
 

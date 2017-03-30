@@ -9,6 +9,7 @@
 #include <iostream>
 #include <stdlib.h> 
 #include <algorithm>
+#include "collidebox.hpp"
 
 class Brick {
 public:
@@ -21,6 +22,7 @@ public:
     Mesh & getMesh(){return tempm;}
     float getDistance(const Point & p);
     bool isIn(const Point & p);
+    int collideSide(CollideBox & box);
     
 
 private:
@@ -30,6 +32,15 @@ private:
     Point pobj1;
     Point pobj2;
     Mesh tempm;
+    bool topB;
+    bool rightB;
+    bool bottomB;
+    bool leftB;
+    CollideBox topBox;
+    CollideBox rightBox;
+    CollideBox bottomBox;
+    CollideBox leftBox;
+
 
 } ;
 

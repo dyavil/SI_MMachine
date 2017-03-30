@@ -3,6 +3,7 @@
 
 #include "terrain.hpp"
 #include "controller.hpp"
+#include "collidebox.hpp"
 
 #include "mat.h"
 #include "vec.h"
@@ -16,7 +17,7 @@ class Player {
      * @param position la position ou placer le vehicule
      * @param direction la direction vers laquelle se dirige le vehicule
      */
-    void spawn_at(const Point& position, const Vector& direction) ;
+    void spawn_at(const Point& position, const Vector& direction, const Point pmin, const Point pmax) ;
 
     /**
      * Statut du vehicule
@@ -37,7 +38,7 @@ class Player {
     /**
      * Matrice de transformation a utiliser pour l'affichage du vehicule
      */
-    Transform transform() ;
+    Transform transform(Brick & brick) ;
 
     //parameters
     /**
@@ -51,6 +52,7 @@ class Player {
 
 
     const Point getPos(){return position_;}
+    CollideBox & getBox(){return cbox;}
     
   private :
 
@@ -67,12 +69,13 @@ class Player {
     bool active_ ;
     Vector speed_ ;
     int last_time_ ;
-    void step() ;
+    void step(Brick & brick) ;
 
     //elements
     Point position_ ;
     Vector direction_ ;
     Vector normal_ ;
+    CollideBox cbox;
 
     //parameters
     float acceleration_ ;

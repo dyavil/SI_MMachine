@@ -25,8 +25,8 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 
 	float diffy = pmax.y - pmin.y;
 	float diffx = pmax.x - pmin.x;
-	float side_weight_y = diffy/(float)5;
-	float side_weight_x = diffx/(float)5;
+	float side_weight_y = diffy/(float)12;
+	float side_weight_x = diffx/(float)12;
 
 	
 
@@ -37,6 +37,7 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 	unsigned int ah4 = tempm.vertex(pmax.x, pmax.y-side_weight_y, 0);
 	tempm.triangle(ah1, ah2, ah3);
 	tempm.triangle(ah1, ah4, ah2);
+	topBox = CollideBox(Point(pmin.x, pmax.y-side_weight_y, 0), pmax);
 
 	//arrete basse
 	unsigned int ab1 = tempm.vertex(pmin);
@@ -45,6 +46,7 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 	unsigned int ab4 = tempm.vertex(pmax.x, pmin.y, 0);
 	tempm.triangle(ab1, ab2, ab3);
 	tempm.triangle(ab1, ab4, ab2);
+	bottomBox = CollideBox(pmin, Point(pmax.x, pmin.y+side_weight_y, 0));
 	
 	
 
@@ -55,7 +57,7 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 	unsigned int ad4 = tempm.vertex(pmax.x, pmin.y, 0);
 	tempm.triangle(ad1, ad2, ad3);
 	tempm.triangle(ad1, ad4, ad2);
-	
+	rightBox = CollideBox(Point(pmax.x-side_weight_x, pmin.y, 0), pmax);
 
 	
 
@@ -67,6 +69,7 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 	unsigned int ag4 = tempm.vertex(pmin.x+side_weight_x, pmin.y, 0);
 	tempm.triangle(ag1, ag2, ag3);
 	tempm.triangle(ag1, ag4, ag2);
+	leftBox = CollideBox(pmin, Point(pmin.x+side_weight_x, pmax.y, 0));
 	
 
 	//center
@@ -78,10 +81,14 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 	tempm.triangle(a, d, b);
 
 	//////////////////////////////////////////////
-
+	topB = false;
+	rightB = false;
+	bottomB = false;
+	leftB = false;
 
 	if (top)
 	{
+		topB = true;
 		tempm.color(ah1, clr);
 		tempm.color(ah2, clr);
 		tempm.color(ah3, clr);
@@ -89,6 +96,7 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 	}
 	if (right)
 	{
+		rightB = true;
 		tempm.color(ad1, clr);
 		tempm.color(ad2, clr);
 		tempm.color(ad3, clr);
@@ -96,6 +104,7 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 	}
 	if (bottom)
 	{
+		bottomB = true;
 		tempm.color(ab1, clr);
 		tempm.color(ab2, clr);
 		tempm.color(ab3, clr);
@@ -103,6 +112,7 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 	}
 	if (left)
 	{
+		leftB = true;
 		tempm.color(ag1, clr);
 		tempm.color(ag2, clr);
 		tempm.color(ag3, clr);
@@ -127,4 +137,28 @@ bool Brick::isIn(const Point & p){
 		return true;
 	}
 	return false;
+}
+
+int Brick::collideSide(CollideBox & box){
+
+	if (topB)
+	{
+		if(topBox.collide(box)){
+			//std::cout << box.getPmin() << std::endl;
+			return 1;
+		} 
+	}
+	if (rightB)
+	{
+		if(rightBox.collide(box)) return 2;
+	}
+	if (bottomB)
+	{
+		if(bottomBox.collide(box)) return 3;
+	}
+	if (leftB)
+	{
+		if(leftBox.collide(box)) return 4;
+	}
+	return 0;
 }
