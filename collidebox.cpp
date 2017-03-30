@@ -10,7 +10,7 @@ bool CollideBox::collide(CollideBox & box) const{
 	Point BottomRight = Point(pmax.x, pmin.y, pmin.z);*/
 
 	//std::cout << otherMin.x << ", " << pmin.x << std::endl;
-	if (pmin.x < otherMax.x && pmax.x > otherMin.x &&
-    pmin.y < otherMax.y && pmax.y> otherMin.y) return true;
+	if (pmin.x <= otherMax.x && pmax.x >= otherMin.x &&
+    pmin.y <= otherMax.y && pmax.y >= otherMin.y) return true;
 	return false;
 }

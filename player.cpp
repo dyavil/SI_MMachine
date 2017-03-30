@@ -118,9 +118,27 @@ void Player::step(Brick & brick) {
   temp.update((time - last_time_) * speed_);
 
   
-  if (brick.collideSide(temp))
+  if (int col = brick.collideSide(temp))
   {
+    //TODO : don't stop, just slow it down
+    //vector symetrique par rapport a la normale
+    //down speed
     //std::cout <<  " collide "<< std::endl;
+    speed_ = direction_ * acceleration_ ;
+    if(col == 1){
+        Vector v = ((time - last_time_) * speed_ );
+        Vector r = -2*dot(v, Vector(0, 1, 0))*Vector(0, 1, 0) + v;
+        new_position = position_ + r;
+        cbox.update(r);
+        project(new_position) ;
+        //update speed taking projection into account
+        speed_ = (new_position - position_) / (time - last_time_) ;
+        speed_ = speed_ - dot(speed_, normal_)*normal_ ;
+
+        //update the position
+        position_ = new_position ;
+    }
+    
   }
   else{
     //cbox
