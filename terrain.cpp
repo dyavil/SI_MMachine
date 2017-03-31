@@ -11,6 +11,10 @@ Terrain::Terrain(int h, int w, Point pmn, Point pmx){
 	Color clr = Color(1, 0, 1);
 	int j = 0;
 	Point pp = Point(0, 0, 0);
+	float r = ((float)rand() / (RAND_MAX));
+	float r1 = ((float)rand() / (RAND_MAX));
+	float r2 = ((float)rand() / (RAND_MAX));
+	Color clr2 = Color(r, r1, r2);
 	for (int i = 0; i < size; ++i)
 	{
 		int id;
@@ -34,16 +38,16 @@ Terrain::Terrain(int h, int w, Point pmn, Point pmx){
 			if (i%w == 0)
 			{
 				if(col == 0 && j > 1 ) {
-					n.initMesh(clr, false, false, true, true);
+					n.initMesh(clr, clr2, false, false, true, true);
 					printf("%s\n", "innnnn");
 				}
-				else n.initMesh(clr, true, false, true, true);
+				else n.initMesh(clr, clr2, true, false, true, true);
 			}
 			else if (i%w == w-1)
 			{
-				n.initMesh(clr, true, true, false, false);
+				n.initMesh(clr, clr2, true, true, false, false);
 			}
-			else n.initMesh(clr, true, false, true);
+			else n.initMesh(clr, clr2, true, false, true);
 			bricks.push_back(n);
 		}else{	
 			id = i+w-1;
@@ -57,13 +61,13 @@ Terrain::Terrain(int h, int w, Point pmn, Point pmx){
 				if(p2.x >= pp.x && p2.y >= pp.y) pp =p2;
 				if (k == w-1)
 				{
-					n.initMesh(clr, false, true, true);
+					n.initMesh(clr, clr2, false, true, true);
 				}
 				else if(k==0) {
-					n.initMesh(clr, true, false, false, true);
+					n.initMesh(clr, clr2, true, false, false, true);
 				}
 
-				else n.initMesh(clr, true, false, true);
+				else n.initMesh(clr, clr2, true, false, true);
 				bricks.push_back(n);
 				id--;
 			}

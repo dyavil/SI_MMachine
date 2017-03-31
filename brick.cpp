@@ -5,13 +5,13 @@ int Brick::getPosition(){
 }
 
 
-void Brick::initMesh(const Color clr, const bool top, const bool right, const bool bottom, const bool left){
+void Brick::initMesh(const Color clr, const Color clr2, const bool top, const bool right, const bool bottom, const bool left){
 	tempm = Mesh(GL_TRIANGLES);
 	
-	/*double r = ((double) rand() / (RAND_MAX));
-	double r1 = ((double) rand() / (RAND_MAX));
-	double r2 = ((double) rand() / (RAND_MAX));*/
-	tempm.color(Color(1, 1, 1));
+	float r = ((float) rand() / (RAND_MAX));
+	float r1 = ((float) rand() / (RAND_MAX));
+	float r2 = ((float) rand() / (RAND_MAX));
+	tempm.color(clr2);
 	pobj1 = pmax;
 	pobj2 = Point(pmax.x, pmin.y, 0);
 	/*unsigned int a = tempm.vertex(pmin);
@@ -31,18 +31,52 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 	
 
 	//arrete haute
+
+	tempm.normal(0, 1, 0);
 	unsigned int ah1 = tempm.vertex(pmin.x, pmax.y-side_weight_y, 0);
+	if (top)
+	{
+		r = ((float)rand() / (RAND_MAX));
+		r1 = ((float)rand() / (RAND_MAX));
+		r2 = ((float)rand() / (RAND_MAX));
+		tempm.normal(r, r1, r2);
+	}else tempm.normal(1, 1, 1); 
 	unsigned int ah2 = tempm.vertex(pmax);
+	if(top)
+	{
+		r = ((float)rand() / (RAND_MAX));
+		r1 = ((float)rand() / (RAND_MAX));
+		r2 = ((float)rand() / (RAND_MAX));
+		tempm.normal(r, r1, r2);
+	}else tempm.normal(0, 1, 1);
 	unsigned int ah3 = tempm.vertex(pmin.x, pmax.y, 0);
+	
+	tempm.normal(1, 0, 1);
 	unsigned int ah4 = tempm.vertex(pmax.x, pmax.y-side_weight_y, 0);
 	tempm.triangle(ah1, ah2, ah3);
 	tempm.triangle(ah1, ah4, ah2);
 	topBox = CollideBox(Point(pmin.x, pmax.y-side_weight_y, 0), pmax);
 
 	//arrete basse
+	if (bottom)
+	{
+		r = ((float)rand() / (RAND_MAX));
+		r1 = ((float)rand() / (RAND_MAX));
+		r2 = ((float)rand() / (RAND_MAX));
+		tempm.normal(r, r1, r2);
+	}else tempm.normal(1, 0, 1);
 	unsigned int ab1 = tempm.vertex(pmin);
+	tempm.normal(0, 1, 1);
 	unsigned int ab2 = tempm.vertex(pmax.x, pmin.y+side_weight_y, 0);
+	tempm.normal(1, 1, 1);
 	unsigned int ab3 = tempm.vertex(pmin.x, pmin.y+side_weight_y, 0);
+	if (bottom)
+	{
+		r = ((float)rand() / (RAND_MAX));
+		r1 = ((float)rand() / (RAND_MAX));
+		r2 = ((float)rand() / (RAND_MAX));
+		tempm.normal(r, r1, r2);
+	}else tempm.normal(0, 1, 0);
 	unsigned int ab4 = tempm.vertex(pmax.x, pmin.y, 0);
 	tempm.triangle(ab1, ab2, ab3);
 	tempm.triangle(ab1, ab4, ab2);
@@ -51,9 +85,27 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 	
 
 	//arrete droite
+	tempm.normal(1, 1, 1);
 	unsigned int ad1 = tempm.vertex(pmax.x-side_weight_x, pmin.y, 0);
+	if (right)
+	{
+		r = ((float)rand() / (RAND_MAX));
+		r1 = ((float)rand() / (RAND_MAX));
+		r2 = ((float)rand() / (RAND_MAX));
+		tempm.normal(r, r1, r2);
+	}
+	else tempm.normal(0, 1, 0);
 	unsigned int ad2 = tempm.vertex(pmax);
+	tempm.normal(1, 0, 1);
 	unsigned int ad3 = tempm.vertex(pmax.x-side_weight_x, pmax.y, 0);
+	if (right)
+	{
+		r = ((float)rand() / (RAND_MAX));
+		r1 = ((float)rand() / (RAND_MAX));
+		r2 = ((float)rand() / (RAND_MAX));
+		tempm.normal(r, r1, r2);
+	}
+	else tempm.normal(0, 1, 1);
 	unsigned int ad4 = tempm.vertex(pmax.x, pmin.y, 0);
 	tempm.triangle(ad1, ad2, ad3);
 	tempm.triangle(ad1, ad4, ad2);
@@ -63,9 +115,27 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 
 
 	//arrete gauche
+	if (left)
+	{
+		r = ((float)rand() / (RAND_MAX));
+		r1 = ((float)rand() / (RAND_MAX));
+		r2 = ((float)rand() / (RAND_MAX));
+		tempm.normal(r, r1, r2);
+	}
+	else tempm.normal(0, 1, 1);
 	unsigned int ag1 = tempm.vertex(pmin);
+	tempm.normal(1, 0, 1);
 	unsigned int ag2 = tempm.vertex(pmin.x+side_weight_x, pmax.y, 0);
+	if (left)
+	{
+		r = ((float)rand() / (RAND_MAX));
+		r1 = ((float)rand() / (RAND_MAX));
+		r2 = ((float)rand() / (RAND_MAX));
+		tempm.normal(r, r1, r2);
+	}
+	else tempm.normal(0, 1, 0);
 	unsigned int ag3 = tempm.vertex(pmin.x, pmax.y, 0);
+	tempm.normal(1, 1, 1);
 	unsigned int ag4 = tempm.vertex(pmin.x+side_weight_x, pmin.y, 0);
 	tempm.triangle(ag1, ag2, ag3);
 	tempm.triangle(ag1, ag4, ag2);
@@ -73,9 +143,13 @@ void Brick::initMesh(const Color clr, const bool top, const bool right, const bo
 	
 
 	//center
+	tempm.normal(0, 1, 1);
 	unsigned int a = tempm.vertex(pmin.x+side_weight_x, pmin.y+side_weight_y, 0);
+	tempm.normal(1, 0, 1);
 	unsigned int b = tempm.vertex(pmax.x-side_weight_x, pmax.y-side_weight_y, 0);
+	tempm.normal(0, 1, 0);
 	unsigned int c = tempm.vertex(pmin.x+side_weight_x, pmax.y-side_weight_y, 0);
+	tempm.normal(1, 1, 1);
 	unsigned int d = tempm.vertex(pmax.x-side_weight_x, pmin.y+side_weight_y, 0);
 	tempm.triangle(a, b, c);
 	tempm.triangle(a, d, b);

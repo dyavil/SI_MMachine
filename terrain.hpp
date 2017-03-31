@@ -3,6 +3,7 @@
 
 #include "vec.h"
 #include "mat.h"
+#include <cmath>
 #include "mesh.h"
 #include "image.h"
 #include "orbiter.h"

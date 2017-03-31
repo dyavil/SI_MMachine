@@ -6,6 +6,7 @@
 #include "window.h"
 #include "wavefront.h"
 #include <stdio.h>
+#include <ctime>
 
 
 std::vector<Mesh> meshes;
@@ -106,6 +107,7 @@ int quit( )
 
 int main( int argc, char **argv )
 {
+	srand(time(NULL));
     // etape 1 : creer la fenetre
     Window window= create_window(1024, 640);
     if(window == NULL)

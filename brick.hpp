@@ -18,7 +18,7 @@ public:
     ~Brick(){};
     int getPosition();
     void setPosition(Point pmn, Point pmx);
-    void initMesh(const Color clr = Color(1, 1, 1), const bool top = false, const bool right = false, const bool bottom = false, const bool left = false);
+    void initMesh(const Color clr = Color(1, 1, 1), const Color clr2 = Color(1, 1, 1), const bool top = false, const bool right = false, const bool bottom = false, const bool left = false);
     Mesh & getMesh(){return tempm;}
     float getDistance(const Point & p);
     bool isIn(const Point & p);

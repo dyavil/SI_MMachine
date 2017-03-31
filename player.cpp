@@ -116,7 +116,7 @@ void Player::step(Brick & brick) {
 
   CollideBox temp = cbox;
   temp.update((time - last_time_) * speed_);
-
+  Vector r = ((time - last_time_) * speed_);
   
   if (int col = brick.collideSide(temp))
   {
@@ -125,9 +125,30 @@ void Player::step(Brick & brick) {
     //down speed
     //std::cout <<  " collide "<< std::endl;
     speed_ = direction_ * acceleration_ ;
-    if(col == 1){
-        Vector v = ((time - last_time_) * speed_ );
-        Vector r = -2*dot(v, Vector(0, 1, 0))*Vector(0, 1, 0) + v;
+    if(col > 0){
+		Vector v = ((time - last_time_) * speed_);
+		switch (col)
+		{
+		case 1:
+			if (forward_) r = -2 * dot(v, Vector(0, 2, 0))*Vector(0, 2, 0) - v;
+			else r = 2 * dot(v, Vector(0, 2, 0))*Vector(0, 2, 0) - v;
+			break;
+		case 2 :
+			if (forward_) r = -2 * dot(v, Vector(2, 0, 0))*Vector(2, 0, 0) - v;
+			else r = 2 * dot(v, Vector(2, 0, 0))*Vector(2, 0, 0) - v;
+			break;
+		case 3:
+			if (forward_) r = -2 * dot(v, Vector(0, -2, 0))*Vector(0, -2, 0) - v;
+			else r = 2 * dot(v, Vector(0, -2, 0))*Vector(0, -2, 0) - v;
+			break;
+		case 4:
+			if (forward_) r = -2 * dot(v, Vector(-2, 0, 0))*Vector(-2, 0, 0) - v;
+			else r = 2 * dot(v, Vector(-2, 0, 0))*Vector(-2, 0, 0) - v;
+			break;
+		default:
+			break;
+		}
+        
         new_position = position_ + r;
         cbox.update(r);
         project(new_position) ;
@@ -137,12 +158,13 @@ void Player::step(Brick & brick) {
 
         //update the position
         position_ = new_position ;
+
     }
     
   }
   else{
     //cbox
-    cbox.update((time - last_time_) * speed_);
+    cbox.update(r);
 
     //project
     project(new_position) ;
