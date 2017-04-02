@@ -181,6 +181,13 @@ void Player::step(Brick & brick) {
   last_time_ = time ;
 }
 
+void Player::collideOther(CollideBox & colbox) {
+	if (cbox.collide(colbox)) {
+		if (forward_) speed_ = -direction_ * acceleration_;
+		else speed_ = direction_ * acceleration_;
+	}
+}
+
 bool Player :: active() {
   return active_ ;
 }

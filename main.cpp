@@ -83,8 +83,10 @@ int draw( )
 
     Transform player1_pos = player1.transform(t.getBrickOn(player1.getPos()));
     draw(car1, player1_pos, camera);
+	player1.collideOther(player2.getBox());
     Transform player2_pos = player2.transform(t.getBrickOn(player2.getPos()));
     draw(car2, player2_pos, camera);
+	player2.collideOther(player1.getBox());
     //std::cout << "Ahead : " << t.whosAhead(player1.getPos(), player2.getPos()) << ", p1 sur " << t.getBrickOn(player1.getPos()).getPosition() << std::endl;
     //std::cout << "p1 in : " << player1.getBox().getPmin() << std::endl;
 

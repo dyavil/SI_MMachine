@@ -40,6 +40,8 @@ class Player {
      */
     Transform transform(Brick & brick) ;
 
+	void collideOther(CollideBox & colbox);
+
     //parameters
     /**
      * Terrain a fournir sur lequel le vehicule se deplace.
