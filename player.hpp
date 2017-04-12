@@ -64,6 +64,7 @@ class Player {
 
     //control
     bool forward_ ;
+    bool backward_;
     bool switchable_ ;
     const Controller* controller_ ;
 

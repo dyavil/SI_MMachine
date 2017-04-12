@@ -4,7 +4,8 @@
 
 Player::Player() : 
   terrain_(nullptr),
-  forward_(true),
+  forward_(false),
+  backward_(true),
   switchable_(true),
   controller_(nullptr),
   active_(false),
@@ -43,6 +44,7 @@ void Player::step(Brick & brick) {
   //handle friction
   Vector linear = dot(speed_, direction_)*direction_ ;
   Vector lateral = speed_ - linear ;
+  Vector realdir = normalize(linear);
   speed_ = speed_ - friction_.x * linear ;
   speed_ = speed_ - friction_.y * lateral ;
 
@@ -95,9 +97,11 @@ void Player::step(Brick & brick) {
     if(switchable_) {
       if(controller_->down()) {
         forward_ = false ;
+        backward_ =true;
       } 
       if(controller_->up()) {
         forward_ = true ;
+        backward_ =false;
       }
     }
   }
@@ -121,29 +125,38 @@ void Player::step(Brick & brick) {
   if (int col = brick.collideSide(temp))
   {
     //TODO : don't stop, just slow it down
-    //vector symetrique par rapport a la normale
     //down speed
     //std::cout <<  " collide "<< std::endl;
     speed_ = direction_ * acceleration_ ;
     if(col > 0){
 		Vector v = ((time - last_time_) * speed_);
+    std::cout << direction_ << ", " << forward_ << std::endl;
 		switch (col)
 		{
 		case 1:
 			if (forward_) r = -2 * dot(v, Vector(0, 2, 0))*Vector(0, 2, 0) - v;
-			else r = 2 * dot(v, Vector(0, 2, 0))*Vector(0, 2, 0) - v;
+			else if(backward_) r = 2 * dot(v, Vector(0, 2, 0))*Vector(0, 2, 0) - v;
+      std::cout <<  " collide 1"<< std::endl;
 			break;
 		case 2 :
 			if (forward_) r = -2 * dot(v, Vector(2, 0, 0))*Vector(2, 0, 0) - v;
-			else r = 2 * dot(v, Vector(2, 0, 0))*Vector(2, 0, 0) - v;
+			else if(backward_) r = 2 * dot(v, Vector(2, 0, 0))*Vector(2, 0, 0) - v;
+      std::cout <<  " collide 2"<< std::endl;
 			break;
 		case 3:
 			if (forward_) r = -2 * dot(v, Vector(0, -2, 0))*Vector(0, -2, 0) - v;
-			else r = 2 * dot(v, Vector(0, -2, 0))*Vector(0, -2, 0) - v;
+			else if(backward_) r = 2 * dot(v, Vector(0, -2, 0))*Vector(0, -2, 0) - v;
+      std::cout <<  " collide 3"<< std::endl;
 			break;
 		case 4:
-			if (forward_) r = -2 * dot(v, Vector(-2, 0, 0))*Vector(-2, 0, 0) - v;
-			else r = 2 * dot(v, Vector(-2, 0, 0))*Vector(-2, 0, 0) - v;
+			if (forward_){
+        r = -2 * dot(v, Vector(-2, 0, 0))*Vector(-2, 0, 0) - v;
+        std::cout <<  " collide 41 "<< std::endl;
+      }
+			else if(backward_) {
+        r = 2 * dot(v, Vector(-2, 0, 0))*Vector(-2, 0, 0) - v;
+          std::cout <<  " collide 42, " << std::endl;
+        }
 			break;
 		default:
 			break;
