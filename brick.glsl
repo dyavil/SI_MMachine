@@ -24,6 +24,7 @@ void main( )
     // obligation du vertex shader : calculer les coordonnées du sommet dans le repère projectif homogene de la camera
     
     vec3 n= mat3(modelMatrix) * vec3(0, 0, 1);
+    vec3 newpos = position;
     vec4 posfin;
     if (type == 1)
     {
@@ -34,6 +35,13 @@ void main( )
         gl_Position= mvpMatrix * vec4(newpos, 1);*/
         gl_Position= mvpMatrix * vec4(position, 1);
         posfin = mvpMatrix * vec4(position, 1);
+    }
+    else if(type == 2){
+        color= vec3(0, 0.5, 0.8);
+
+        newpos.z += (sin(newpos.y*20+time*0.003)+cos(newpos.x*20+time*0.003))*0.5;
+
+        gl_Position= mvpMatrix * vec4(newpos, 1);
     }
     else{
         color= vec3(0, 1, 0);
@@ -48,17 +56,40 @@ void main( )
     }
     // normale de la surface, dans le repere monde
     
-   
-    // position de la camera dans le repere du monde
-    vec4 sourceh= viewInvMatrix * vec4(0, 0, 0, 1);
-   
-    // rappel : mat4 * vec4 = vec4 homogne, pour retrouver le point / la direction reelle, il faut diviser par la 4ieme composante
-    vec3 source = sourceh.xyz / sourceh.w;
+   if (type == 2)
+   {
+        vec3 a = vec3(position.x+1, position.y, 0);   
+        vec3 b = vec3(position.x, position.y+1, 0);
+        a.z += (sin(a.y*20+time*0.003)+cos(a.x*20+time*0.003))*0.5;
+        b.z += (sin(b.y*20+time*0.003)+cos(b.x*20+time*0.003))*0.5;
 
-    // direction entre le sommet et la source de lumiere
-    vec3 l= normalize(source - position);
-    // calculer le cosinus de l'angle entre les 2 directions, a verifier...
-    orientation = dot(n, l);
+        vec3 da = normalize(a-newpos);
+        vec3 db = normalize(b-newpos);
+        vec3 nn = cross(da, db);
+        vec3 n = mat3(modelMatrix) * normalize(nn);
+        // position de la camera dans le repere du monde
+        vec4 sourceh = viewInvMatrix * vec4(0, 0, 0, 1);
+       
+        // rappel : mat4 * vec4 = vec4 homogne, pour retrouver le point / la direction reelle, il faut diviser par la 4ieme composante
+        vec3 source = sourceh.xyz / sourceh.w;
+
+        // direction entre le sommet et la source de lumiere
+        vec3 l= normalize(source - newpos);
+        // calculer le cosinus de l'angle entre les 2 directions, a verifier...
+        orientation = max(0, dot(n, l));
+   }
+   else{
+        // position de la camera dans le repere du monde
+        vec4 sourceh= viewInvMatrix * vec4(0, 0, 0, 1);
+       
+        // rappel : mat4 * vec4 = vec4 homogne, pour retrouver le point / la direction reelle, il faut diviser par la 4ieme composante
+        vec3 source = sourceh.xyz / sourceh.w;
+
+        // direction entre le sommet et la source de lumiere
+        vec3 l= normalize(source - position);
+        // calculer le cosinus de l'angle entre les 2 directions, a verifier...
+        orientation = dot(n, l);
+    }
     type1 = type;
     vertex_texcoord = texcoord;
 
@@ -79,9 +110,13 @@ void main( )
 {
     // utiliser l'orientation pour modifier la couleur de base... a completer
     //vec3 MaterialAmbientColor = vec3(0.2,0.2,0.2) * vec3(1, 0.5, 0);
-    if(type1 < 0.5){
+    if(type1 > 0.5 && type1 < 1.5){
         vec4 color= texture(texture0, vertex_texcoord)*orientation;
         gl_FragColor = color;
+    }
+    else if (type1 > 1.5)
+    {
+        gl_FragColor= /*vec4(MaterialAmbientColor, 1) + */(vec4(color, 1)*orientation); 
     }
     else {
     gl_FragColor= /*vec4(MaterialAmbientColor, 1) + */(vec4(color, 1)*(floor(orientation * 5)/5)); 

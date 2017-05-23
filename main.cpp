@@ -38,11 +38,33 @@ public:
     {}
     int init( )
     {
-        t = Terrain(1, Point(-36.f, -36.f, 0), Point(36.f, 36.f, 0));
+        t = Terrain(1, Point(-48.f, -48.f, 0), Point(48.f, 48.f, 0));
+
+        grid= Mesh(GL_TRIANGLES);
+
+        for(int z= -50; z < 52; z++)
+        for(int x= -60; x < 60; x++)
+        {
+            //grid.normal(0, 0, 1);
+            grid.vertex(x, z, -1);
+            //grid.normal(0, 0, 1);
+            grid.vertex(x+1, z, -1);
+            //grid.normal(0, 0, 1);
+            grid.vertex(x+1, z+1, -1);
+           
+            //grid.normal(0, 0, 1);
+            grid.vertex(x, z, -1);
+            //grid.normal(0, 0, 1);
+            grid.vertex(x+1, z+1,-1);
+            //grid.normal(0, 0, 1);
+            grid.vertex(x, z+1, -1);
+        }
+
+
         std::vector<Brick> tb = t.getBricks();
         camera = Orbiter();
         mesh = t.getMesh();
-        camera.lookat(Point(-36.f, -36.f, 0), Point(36.f, 36.f, 0));
+        camera.lookat(Point(-48.f, -48.f, 0), Point(48.f, 48.f, 0));
         car1 = read_mesh("MMachine/mmachine.obj");
         car1.default_color(Color(1.0f, 0.f, 0.f));
         car2 = read_mesh("MMachine/mmachine.obj");
@@ -103,6 +125,8 @@ public:
         float val = global_time();
         program_uniform(shaderProgram, "time", val);
         program_use_texture(shaderProgram, "texture0", 0, mTexture0);
+        program_uniform(shaderProgram, "type", 2);
+        grid.draw(shaderProgram);
 
         for (unsigned int i = 0; i < t.getBricks().size(); ++i)
         {
@@ -118,7 +142,7 @@ public:
                 t.getBricks()[i].getBorders()[j].draw(shaderProgram);
             }
         }
-
+        //draw(grid, camera);
         Transform player1_pos = player1.transform(t.getBrickOn(player1.getPos()));
         draw(car1, player1_pos, camera);
     	player1.collideOther(player2.getBox());
@@ -137,6 +161,7 @@ public:
        	//mesh.release();
        	car1.release();
        	car2.release();
+        grid.release();
         release_program(shaderProgram);
         for (unsigned int i = 0; i < t.getBricks().size(); ++i)
         {
@@ -183,6 +208,7 @@ public:
 protected:
     Orbiter camera;
     Mesh mesh;
+    Mesh grid;
     Mesh car1;
     Mesh car2;
     Player player1;

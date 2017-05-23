@@ -297,6 +297,20 @@ void Brick::initMesh(const Color clr, const Color clr2, const bool top, const bo
 		borders.push_back(topMesh);
 	}
 
+	//bottom 
+	if(!top && bottom && !right && !left){
+		Mesh bottomMesh = read_mesh("proj/projet/data/case0.obj");
+		Point tpmax, tpmin;
+		bottomMesh.bounds(tpmin, tpmax);
+		Point cent = center(tpmin, tpmax);
+		Point cent2 = center(pmin, pmax);
+		float te1 = pmax.x-pmin.x;
+		float te2 = pmax.y-pmin.y;
+		std::cout << te1 << std::endl;
+		transforms.push_back((Translation(pmin-Point(tpmin.x-te1, tpmin.y, tpmax.z)))*(RotationY(90))*(RotationZ(90)));
+		borders.push_back(bottomMesh);
+	}
+
 	//right
 	if(!top && !bottom && right && !left){
 		Mesh topMesh = read_mesh("proj/projet/data/case0.obj");
