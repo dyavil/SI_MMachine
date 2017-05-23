@@ -6,8 +6,10 @@
 #include "mesh.h"
 #include "image.h"
 #include "orbiter.h"
+#include "wavefront.h"
 #include <iostream>
 #include <stdlib.h> 
+#include <stdio.h>
 #include <algorithm>
 #include "collidebox.hpp"
 
@@ -20,6 +22,8 @@ public:
     void setPosition(Point pmn, Point pmx);
     void initMesh(const Color clr = Color(1, 1, 1), const Color clr2 = Color(1, 1, 1), const bool top = false, const bool right = false, const bool bottom = false, const bool left = false);
     Mesh & getMesh(){return tempm;}
+    std::vector<Mesh> & getBorders(){return borders;};
+    std::vector<Transform> & getTransforms(){return transforms;};
     float getDistance(const Point & p);
     bool isIn(const Point & p);
     int collideSide(CollideBox & box);
@@ -32,6 +36,8 @@ private:
     Point pobj1;
     Point pobj2;
     Mesh tempm;
+    std::vector<Transform> transforms;
+    std::vector<Mesh> borders;
     bool topB;
     bool rightB;
     bool bottomB;

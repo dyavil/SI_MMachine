@@ -87,6 +87,101 @@ Terrain::Terrain(int h, int w, Point pmn, Point pmx){
 	mesh.triangle(a, d, b);
 }
 
+Terrain::Terrain(int nb, Point pmn, Point pmx){
+	size = 12*12;
+	pmin = pmn;
+	pmax = pmx;
+	double xgap = abs(pmax.x-pmin.x)/(double)12;
+	double ygap = abs(pmax.y-pmin.y)/(double)12;
+	if (nb == 1)
+	{
+		Point p1, p2;
+		//
+		p1 = Point((double)pmin.x+0*xgap, (double)pmin.y+11*ygap, pmin.z);
+		p2 = Point((double)pmin.x+1*xgap, (double)pmin.y+12*ygap, pmin.z);
+		Brick n = Brick(0, p1, p2);
+		n.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, true, false);
+		bricks.push_back(n);
+
+		p1 = Point((double)pmin.x+1*xgap, (double)pmin.y+11*ygap, pmin.z);
+		p2 = Point((double)pmin.x+2*xgap, (double)pmin.y+12*ygap, pmin.z);
+		Brick n2 = Brick(1, p1, p2);
+		n2.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, true, false);
+		bricks.push_back(n2);
+
+		p1 = Point((double)pmin.x+2*xgap, (double)pmin.y+11*ygap, pmin.z);
+		p2 = Point((double)pmin.x+3*xgap, (double)pmin.y+12*ygap, pmin.z);
+		Brick n3 = Brick(2, p1, p2);
+		n3.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, false);
+		bricks.push_back(n3); 
+
+		p1 = Point((double)pmin.x+3*xgap, (double)pmin.y+11*ygap, pmin.z);
+		p2 = Point((double)pmin.x+4*xgap, (double)pmin.y+12*ygap, pmin.z);
+		Brick n4 = Brick(3, p1, p2);
+		n4.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, true, false, false);
+		bricks.push_back(n4);
+
+		//
+		p1 = Point((double)pmin.x+3*xgap, (double)pmin.y+10*ygap, pmin.z);
+		p2 = Point((double)pmin.x+4*xgap, (double)pmin.y+11*ygap, pmin.z);
+		Brick n5 = Brick(4, p1, p2);
+		n5.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		bricks.push_back(n5);
+
+		p1 = Point((double)pmin.x+2*xgap, (double)pmin.y+10*ygap, pmin.z);
+		p2 = Point((double)pmin.x+3*xgap, (double)pmin.y+11*ygap, pmin.z);
+		Brick n6 = Brick(4, p1, p2);
+		n6.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		bricks.push_back(n6);
+
+		//
+		p1 = Point((double)pmin.x+3*xgap, (double)pmin.y+9*ygap, pmin.z);
+		p2 = Point((double)pmin.x+4*xgap, (double)pmin.y+10*ygap, pmin.z);
+		Brick n7 = Brick(5, p1, p2);
+		n7.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, true, false);
+		bricks.push_back(n7);
+
+		p1 = Point((double)pmin.x+2*xgap, (double)pmin.y+9*ygap, pmin.z);
+		p2 = Point((double)pmin.x+3*xgap, (double)pmin.y+10*ygap, pmin.z);
+		Brick n8 = Brick(5, p1, p2);
+		n8.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		bricks.push_back(n8);
+
+
+		p1 = Point((double)pmin.x+1*xgap, (double)pmin.y+9*ygap, pmin.z);
+		p2 = Point((double)pmin.x+2*xgap, (double)pmin.y+10*ygap, pmin.z);
+		Brick n9 = Brick(5, p1, p2);
+		n9.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, true);
+		bricks.push_back(n9);
+
+		//
+		p1 = Point((double)pmin.x+2*xgap, (double)pmin.y+8*ygap, pmin.z);
+		p2 = Point((double)pmin.x+3*xgap, (double)pmin.y+9*ygap, pmin.z);
+		Brick n10 = Brick(6, p1, p2);
+		n10.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		bricks.push_back(n10);
+
+		p1 = Point((double)pmin.x+1*xgap, (double)pmin.y+8*ygap, pmin.z);
+		p2 = Point((double)pmin.x+2*xgap, (double)pmin.y+9*ygap, pmin.z);
+		Brick n11 = Brick(6, p1, p2);
+		n11.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		bricks.push_back(n11);
+
+		//
+		p1 = Point((double)pmin.x+1*xgap, (double)pmin.y+7*ygap, pmin.z);
+		p2 = Point((double)pmin.x+2*xgap, (double)pmin.y+8*ygap, pmin.z);
+		Brick n12 = Brick(7, p1, p2);
+		n12.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, true, true);
+		bricks.push_back(n12);
+
+		p1 = Point((double)pmin.x+2*xgap, (double)pmin.y+7*ygap, pmin.z);
+		p2 = Point((double)pmin.x+3*xgap, (double)pmin.y+8*ygap, pmin.z);
+		Brick n13 = Brick(8, p1, p2);
+		n13.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		bricks.push_back(n13);
+	}
+}
+
 
 void Terrain::project(const Point& from, Point& to, Vector& n) const {
   to.z = 0 ;
@@ -122,6 +217,6 @@ int Terrain::whosAhead(const Point& p1, const Point& p2){
 	}
 }
 
-std::vector<Brick> Terrain::getBricks(){
+std::vector<Brick> & Terrain::getBricks(){
 	return bricks;
 }

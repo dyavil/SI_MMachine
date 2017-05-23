@@ -15,9 +15,9 @@ Player::Player() :
   direction_(1.f, 0.f, 0.f),
   normal_(0.f, 0.f, 0.f),
   //useful parameters to control the movement behavior
-  acceleration_(0.0005f),
+  acceleration_(0.0004f),
   turning_angle_(3.f),
-  max_speed_(8.f),
+  max_speed_(7.f),
   friction_(0.02f, 0.1f) //front and lateral friction for drift
 {}
 
