@@ -4,22 +4,18 @@ int Brick::getPosition(){
 	return position;
 }
 
+Brick::Brick(int p, Point pn, Point px, const bool top, const bool right, const bool bottom, const bool left){
+	position = p;
+	pmin = pn;
+	pmax = px;
+	initMesh(top, right, bottom, left);
+}
 
-void Brick::initMesh(const Color clr, const Color clr2, const bool top, const bool right, const bool bottom, const bool left){
+void Brick::initMesh(const bool top, const bool right, const bool bottom, const bool left){
 	tempm = Mesh(GL_TRIANGLES);
 	
-	float r = ((float) rand() / (RAND_MAX));
-	float r1 = ((float) rand() / (RAND_MAX));
-	float r2 = ((float) rand() / (RAND_MAX));
-	tempm.color(clr2);
 	pobj1 = pmax;
 	pobj2 = Point(pmax.x, pmin.y, 0);
-	/*unsigned int a = tempm.vertex(pmin);
-	unsigned int b = tempm.vertex(pmax);
-	unsigned int c = tempm.vertex(pmin.x, pmax.y, 0);
-	unsigned int d = tempm.vertex(pmax.x, pmin.y, 0);
-	tempm.triangle(a, b, c);
-	tempm.triangle(a, d, b);*/
 
 	/////////////////////////////////////////////
 
@@ -38,73 +34,13 @@ void Brick::initMesh(const Color clr, const Color clr2, const bool top, const bo
 	// else tempm.normal(0.2, 0.8, 0.4);
 	// if (top)
 	// {
-		/*Mesh topMesh = Mesh(GL_TRIANGLES);
-		// = read_mesh("data/border.obj");
-		unsigned int ah1 = topMesh.vertex(pmin.x, pmax.y-side_weight_y, 0);
-		// if (top)
-		// {
-		// 	tempm.normal(1, 1, 1);
-		// }else tempm.normal(0, 0, 0);
-		unsigned int ah2 = topMesh.vertex(pmax);
-		// if(top)
-		// {
-		// 	tempm.normal(1, 1, 1);
-		// }else tempm.normal(0, 0, 0);
-		unsigned int ah3 = topMesh.vertex(pmin.x, pmax.y, 0);	
-		
-		// if (top)
-		// {
-		// 	tempm.normal(-0.2, 0.8, 0.2);
-		// }
-		// else tempm.normal(-0.2, 0.8, 0.4);
-		unsigned int ah4 = topMesh.vertex(pmax.x, pmax.y-side_weight_y, 0);
-		topMesh.triangle(ah1, ah2, ah3);
-		topMesh.triangle(ah1, ah4, ah2);
-		borders.push_back(topMesh);*/
-		/*Mesh topMesh = read_mesh("proj/projet/data/case1.obj");
-		Point tpmax, tpmin;
-		topMesh.bounds(tpmin, tpmax);
-		Point cent = center(tpmin, tpmax);
-		Point cent2 = center(Point(pmin.x, pmax.y-side_weight_y, 0), pmax);
-		transforms.push_back((Translation(cent2-cent))*(RotationY(90))*(RotationZ(90))); 
-		//transforms.push_back(Identity());
-		//std::cout << ((Translation(cent2-cent))*(RotationY(90))*(RotationZ(90))) << std::endl;
-		borders.push_back(topMesh);*/
+
 		topBox = CollideBox(Point(pmin.x, pmax.y-side_weight_y, 0), pmax);
 	// }
 
 	//arrete basse
 	// if (bottom)
 	// {
-		 
-		
-		/*Mesh bottomMesh = Mesh(GL_TRIANGLES);
-
-		// {
-		// 	tempm.normal(1, 1, 1);
-		// }
-		// else tempm.normal(0, 0, 0);
-		unsigned int ab1 = bottomMesh.vertex(pmin);
-		// if (bottom)
-		// {
-		// 	tempm.normal(-0.2, -0.8, 0.2);
-		// }
-		// else tempm.normal(-0.2, -0.8, 0.4);
-		unsigned int ab2 = bottomMesh.vertex(pmax.x, pmin.y+side_weight_y, 0);
-		// if (bottom)
-		// {
-		// 	tempm.normal(0.2, -0.8, 0.2);
-		// }
-		// else tempm.normal(0.2, -0.8, 0.4);
-		unsigned int ab3 = bottomMesh.vertex(pmin.x, pmin.y+side_weight_y, 0);
-		// if (bottom)
-		// {
-		// 	tempm.normal(1, 1, 1);
-		// }
-		// else tempm.normal(0, 0, 0);
-		unsigned int ab4 = bottomMesh.vertex(pmax.x, pmin.y, 0);
-		bottomMesh.triangle(ab1, ab2, ab3);
-		bottomMesh.triangle(ab1, ab4, ab2);*/
 		
 		bottomBox = CollideBox(pmin, Point(pmax.x, pmin.y+side_weight_y, 0));
 	// }	
@@ -122,18 +58,7 @@ void Brick::initMesh(const Color clr, const Color clr2, const bool top, const bo
 	{
 
 		diffRight = 1;
-		/*Mesh rightMesh = Mesh(GL_TRIANGLES);
-		// tempm.normal(0.2, 0.8, 0.2);
-		ad1 = rightMesh.vertex(pmax.x - side_weight_x, pmin.y, 0);
-		// tempm.normal(1, 1, 1);
-		ad2 = rightMesh.vertex(pmax);
-		// tempm.normal(0.2, -0.8, 0.2);
-		ad3 = rightMesh.vertex(pmax.x - side_weight_x, pmax.y, 0);
-		// tempm.normal(1, 1, 1);
-		ad4 = rightMesh.vertex(pmax.x, pmin.y, 0);
-		rightMesh.triangle(ad1, ad2, ad3);
-		rightMesh.triangle(ad1, ad4, ad2);
-		borders.push_back(rightMesh);*/
+		
 		//Mesh rightMesh = read_mesh("proj/projet/data/border.obj");
 		Point tpmax, tpmin;
 		//rightMesh.bounds(tpmin, tpmax);
@@ -157,19 +82,7 @@ void Brick::initMesh(const Color clr, const Color clr2, const bool top, const bo
 	if (left)
 	{
 		diffLeft = 1;
-		/*Mesh leftMesh = Mesh(GL_TRIANGLES);
-		// tempm.normal(1, 1, 1);
-		ag1 = leftMesh.vertex(pmin);
-		// tempm.normal(-0.2, -0.8, 0.2);
-		ag2 = leftMesh.vertex(pmin.x + side_weight_x, pmax.y, 0);
-		// tempm.normal(1, 1, 1);
-		ag3 = leftMesh.vertex(pmin.x, pmax.y, 0);
-		// tempm.normal(-0.2, 0.8, 0.2);
-		ag4 = leftMesh.vertex(pmin.x + side_weight_x, pmin.y, 0);
-		leftMesh.triangle(ag1, ag2, ag3);
-		leftMesh.triangle(ag1, ag4, ag2);
-		borders.push_back(leftMesh);*/
-		//Mesh leftMesh = read_mesh("proj/projet/data/border.obj");
+		
 		Point tpmax, tpmin;
 		//leftMesh.bounds(tpmin, tpmax);
 		//Point cent = center(tpmin, tpmax);
@@ -348,34 +261,18 @@ void Brick::initMesh(const Color clr, const Color clr2, const bool top, const bo
 	if (top)
 	{
 		topB = true;
-		// tempm.color(ah1, clr);
-		// tempm.color(ah2, clr);
-		// tempm.color(ah3, clr);
-		// tempm.color(ah4, clr);	
 	}
 	if (right)
 	{
 		rightB = true;
-		// tempm.color(ad1, clr);
-		// tempm.color(ad2, clr);
-		// tempm.color(ad3, clr);
-		// tempm.color(ad4, clr);
 	}
 	if (bottom)
 	{
 		bottomB = true;
-		// tempm.color(ab1, clr);
-		// tempm.color(ab2, clr);
-		// tempm.color(ab3, clr);
-		// tempm.color(ab4, clr);
 	}
 	if (left)
 	{
 		leftB = true;
-		// tempm.color(ag1, clr);
-		// tempm.color(ag2, clr);
-		// tempm.color(ag3, clr);
-		// tempm.color(ag4, clr);
 	}
 	
 }

@@ -17,10 +17,11 @@ class Brick {
 public:
     Brick(){};
     Brick(int p, Point pn, Point px):position(p), pmin(pn), pmax(px){};
+    Brick(int p, Point pn, Point px, const bool top, const bool right, const bool bottom, const bool left);
     ~Brick(){};
     int getPosition();
     void setPosition(Point pmn, Point pmx);
-    void initMesh(const Color clr = Color(1, 1, 1), const Color clr2 = Color(1, 1, 1), const bool top = false, const bool right = false, const bool bottom = false, const bool left = false);
+    void initMesh(const bool top = false, const bool right = false, const bool bottom = false, const bool left = false);
     Mesh & getMesh(){return tempm;}
     std::vector<Mesh> & getBorders(){return borders;};
     std::vector<Transform> & getTransforms(){return transforms;};

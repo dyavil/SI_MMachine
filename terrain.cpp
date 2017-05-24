@@ -8,13 +8,8 @@ Terrain::Terrain(int h, int w, Point pmn, Point pmx){
 	int modcoef = w-h;
 	double xgap = abs(pmax.x-pmin.x)/(double)w;
 	double ygap = abs(pmax.y-pmin.y)/(double)h;
-	Color clr = Color(1, 0, 1);
 	int j = 0;
 	Point pp = Point(0, 0, 0);
-	float r = ((float)rand() / (RAND_MAX));
-	float r1 = ((float)rand() / (RAND_MAX));
-	float r2 = ((float)rand() / (RAND_MAX));
-	Color clr2 = Color(r, r1, r2);
 	for (int i = 0; i < size; ++i)
 	{
 		int id;
@@ -38,16 +33,16 @@ Terrain::Terrain(int h, int w, Point pmn, Point pmx){
 			if (i%w == 0)
 			{
 				if(col == 0 && j > 1 ) {
-					n.initMesh(clr, clr2, false, false, true, true);
+					n.initMesh(false, false, true, true);
 					printf("%s\n", "innnnn");
 				}
-				else n.initMesh(clr, clr2, true, false, true, true);
+				else n.initMesh(true, false, true, true);
 			}
 			else if (i%w == w-1)
 			{
-				n.initMesh(clr, clr2, true, true, false, false);
+				n.initMesh(true, true, false, false);
 			}
-			else n.initMesh(clr, clr2, true, false, true);
+			else n.initMesh(true, false, true);
 			bricks.push_back(n);
 		}else{	
 			id = i+w-1;
@@ -61,13 +56,13 @@ Terrain::Terrain(int h, int w, Point pmn, Point pmx){
 				if(p2.x >= pp.x && p2.y >= pp.y) pp =p2;
 				if (k == w-1)
 				{
-					n.initMesh(clr, clr2, false, true, true);
+					n.initMesh(false, true, true);
 				}
 				else if(k==0) {
-					n.initMesh(clr, clr2, true, false, false, true);
+					n.initMesh(true, false, false, true);
 				}
 
-				else n.initMesh(clr, clr2, true, false, true);
+				else n.initMesh(true, false, true);
 				bricks.push_back(n);
 				id--;
 			}
@@ -102,31 +97,31 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+9*xgap, (double)pmin.y+15*ygap, pmin.z);
 		p2 = Point((double)pmin.x+10*xgap, (double)pmin.y+16*ygap, pmin.z);
 		Brick n49 = Brick(19, p1, p2);
-		n49.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, true);
+		n49.initMesh(true, false, false, true);
 		bricks.push_back(n49);
 
 		p1 = Point((double)pmin.x+10*xgap, (double)pmin.y+15*ygap, pmin.z);
 		p2 = Point((double)pmin.x+11*xgap, (double)pmin.y+16*ygap, pmin.z);
 		Brick n50 = Brick(20, p1, p2);
-		n50.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, false);
+		n50.initMesh(true, false, false, false);
 		bricks.push_back(n50);
 
 		p1 = Point((double)pmin.x+11*xgap, (double)pmin.y+15*ygap, pmin.z);
 		p2 = Point((double)pmin.x+12*xgap, (double)pmin.y+16*ygap, pmin.z);
 		Brick n51 = Brick(21, p1, p2);
-		n51.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, false);
+		n51.initMesh(true, false, false, false);
 		bricks.push_back(n51);
 
 		p1 = Point((double)pmin.x+12*xgap, (double)pmin.y+15*ygap, pmin.z);
 		p2 = Point((double)pmin.x+13*xgap, (double)pmin.y+16*ygap, pmin.z);
 		Brick n52 = Brick(22, p1, p2);
-		n52.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, false);
+		n52.initMesh(true, false, false, false);
 		bricks.push_back(n52);
 
 		p1 = Point((double)pmin.x+13*xgap, (double)pmin.y+15*ygap, pmin.z);
 		p2 = Point((double)pmin.x+14*xgap, (double)pmin.y+16*ygap, pmin.z);
 		Brick n53 = Brick(23, p1, p2);
-		n53.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, true, false, false);
+		n53.initMesh(true, true, false, false);
 		bricks.push_back(n53);
 
 
@@ -135,43 +130,43 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+8*xgap, (double)pmin.y+14*ygap, pmin.z);
 		p2 = Point((double)pmin.x+9*xgap, (double)pmin.y+15*ygap, pmin.z);
 		Brick n45 = Brick(19, p1, p2);
-		n45.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, true);
+		n45.initMesh(true, false, false, true);
 		bricks.push_back(n45);
 
 		p1 = Point((double)pmin.x+9*xgap, (double)pmin.y+14*ygap, pmin.z);
 		p2 = Point((double)pmin.x+10*xgap, (double)pmin.y+15*ygap, pmin.z);
 		Brick n46 = Brick(20, p1, p2);
-		n46.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n46.initMesh(false, false, false, false);
 		bricks.push_back(n46);
 
 		p1 = Point((double)pmin.x+10*xgap, (double)pmin.y+14*ygap, pmin.z);
 		p2 = Point((double)pmin.x+11*xgap, (double)pmin.y+15*ygap, pmin.z);
 		Brick n47 = Brick(21, p1, p2);
-		n47.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n47.initMesh(false, false, false, false);
 		bricks.push_back(n47);
 
 		p1 = Point((double)pmin.x+11*xgap, (double)pmin.y+14*ygap, pmin.z);
 		p2 = Point((double)pmin.x+12*xgap, (double)pmin.y+15*ygap, pmin.z);
 		Brick n48 = Brick(22, p1, p2);
-		n48.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n48.initMesh(false, false, false, false);
 		bricks.push_back(n48);
 
 		p1 = Point((double)pmin.x+12*xgap, (double)pmin.y+14*ygap, pmin.z);
 		p2 = Point((double)pmin.x+13*xgap, (double)pmin.y+15*ygap, pmin.z);
 		Brick n54 = Brick(23, p1, p2);
-		n54.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n54.initMesh(false, false, false, false);
 		bricks.push_back(n54);
 
 		p1 = Point((double)pmin.x+13*xgap, (double)pmin.y+14*ygap, pmin.z);
 		p2 = Point((double)pmin.x+14*xgap, (double)pmin.y+15*ygap, pmin.z);
 		Brick n55 = Brick(24, p1, p2);
-		n55.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n55.initMesh(false, false, false, false);
 		bricks.push_back(n55);
 
 		p1 = Point((double)pmin.x+14*xgap, (double)pmin.y+14*ygap, pmin.z);
 		p2 = Point((double)pmin.x+15*xgap, (double)pmin.y+15*ygap, pmin.z);
 		Brick n56 = Brick(25, p1, p2);
-		n56.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, true, false, false);
+		n56.initMesh(true, true, false, false);
 		bricks.push_back(n56);
 
 
@@ -179,43 +174,43 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+8*xgap, (double)pmin.y+13*ygap, pmin.z);
 		p2 = Point((double)pmin.x+9*xgap, (double)pmin.y+14*ygap, pmin.z);
 		Brick n41 = Brick(19, p1, p2);
-		n41.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		n41.initMesh(false, false, false, true);
 		bricks.push_back(n41);
 
 		p1 = Point((double)pmin.x+9*xgap, (double)pmin.y+13*ygap, pmin.z);
 		p2 = Point((double)pmin.x+10*xgap, (double)pmin.y+14*ygap, pmin.z);
 		Brick n42 = Brick(20, p1, p2);
-		n42.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n42.initMesh(false, false, false, false);
 		bricks.push_back(n42);
 
 		p1 = Point((double)pmin.x+10*xgap, (double)pmin.y+13*ygap, pmin.z);
 		p2 = Point((double)pmin.x+11*xgap, (double)pmin.y+14*ygap, pmin.z);
 		Brick n43 = Brick(21, p1, p2);
-		n43.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n43.initMesh(false, false, false, false);
 		bricks.push_back(n43);
 
 		p1 = Point((double)pmin.x+11*xgap, (double)pmin.y+13*ygap, pmin.z);
 		p2 = Point((double)pmin.x+12*xgap, (double)pmin.y+14*ygap, pmin.z);
 		Brick n44 = Brick(22, p1, p2);
-		n44.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, true, false);
+		n44.initMesh(false, false, true, false);
 		bricks.push_back(n44);
 
 		p1 = Point((double)pmin.x+12*xgap, (double)pmin.y+13*ygap, pmin.z);
 		p2 = Point((double)pmin.x+13*xgap, (double)pmin.y+14*ygap, pmin.z);
 		Brick n57 = Brick(23, p1, p2);
-		n57.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n57.initMesh(false, false, false, false);
 		bricks.push_back(n57);
 
 		p1 = Point((double)pmin.x+13*xgap, (double)pmin.y+13*ygap, pmin.z);
 		p2 = Point((double)pmin.x+14*xgap, (double)pmin.y+14*ygap, pmin.z);
 		Brick n58 = Brick(24, p1, p2);
-		n58.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n58.initMesh(false, false, false, false);
 		bricks.push_back(n58);
 
 		p1 = Point((double)pmin.x+14*xgap, (double)pmin.y+13*ygap, pmin.z);
 		p2 = Point((double)pmin.x+15*xgap, (double)pmin.y+14*ygap, pmin.z);
 		Brick n59 = Brick(25, p1, p2);
-		n59.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		n59.initMesh(false, true, false, false);
 		bricks.push_back(n59);
 
 
@@ -223,43 +218,43 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+8*xgap, (double)pmin.y+12*ygap, pmin.z);
 		p2 = Point((double)pmin.x+9*xgap, (double)pmin.y+13*ygap, pmin.z);
 		Brick n37 = Brick(19, p1, p2);
-		n37.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		n37.initMesh(false, false, false, true);
 		bricks.push_back(n37);
 
 		p1 = Point((double)pmin.x+9*xgap, (double)pmin.y+12*ygap, pmin.z);
 		p2 = Point((double)pmin.x+10*xgap, (double)pmin.y+13*ygap, pmin.z);
 		Brick n38 = Brick(19, p1, p2);
-		n38.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n38.initMesh(false, false, false, false);
 		bricks.push_back(n38);
 
 		p1 = Point((double)pmin.x+10*xgap, (double)pmin.y+12*ygap, pmin.z);
 		p2 = Point((double)pmin.x+11*xgap, (double)pmin.y+13*ygap, pmin.z);
 		Brick n39 = Brick(20, p1, p2);
-		n39.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, true, false);
+		n39.initMesh(false, true, true, false);
 		bricks.push_back(n39);
 
 		p1 = Point((double)pmin.x+12*xgap, (double)pmin.y+12*ygap, pmin.z);
 		p2 = Point((double)pmin.x+13*xgap, (double)pmin.y+13*ygap, pmin.z);
 		Brick n40 = Brick(24, p1, p2);
-		n40.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, true, true);
+		n40.initMesh(false, false, true, true);
 		bricks.push_back(n40);
 
 		p1 = Point((double)pmin.x+13*xgap, (double)pmin.y+12*ygap, pmin.z);
 		p2 = Point((double)pmin.x+14*xgap, (double)pmin.y+13*ygap, pmin.z);
 		Brick n60 = Brick(26, p1, p2);
-		n60.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n60.initMesh(false, false, false, false);
 		bricks.push_back(n60);
 
 		p1 = Point((double)pmin.x+14*xgap, (double)pmin.y+12*ygap, pmin.z);
 		p2 = Point((double)pmin.x+15*xgap, (double)pmin.y+13*ygap, pmin.z);
 		Brick n61 = Brick(26, p1, p2);
-		n61.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n61.initMesh(false, false, false, false);
 		bricks.push_back(n61);
 
 		p1 = Point((double)pmin.x+15*xgap, (double)pmin.y+12*ygap, pmin.z);
 		p2 = Point((double)pmin.x+16*xgap, (double)pmin.y+13*ygap, pmin.z);
 		Brick n62 = Brick(25, p1, p2);
-		n62.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, true, false, false);
+		n62.initMesh(true, true, false, false);
 		bricks.push_back(n62);
 
 
@@ -268,25 +263,25 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+0*xgap, (double)pmin.y+11*ygap, pmin.z);
 		p2 = Point((double)pmin.x+1*xgap, (double)pmin.y+12*ygap, pmin.z);
 		Brick n = Brick(0, p1, p2);
-		n.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, true, false);
+		n.initMesh(true, false, true, false);
 		bricks.push_back(n);
 
 		p1 = Point((double)pmin.x+1*xgap, (double)pmin.y+11*ygap, pmin.z);
 		p2 = Point((double)pmin.x+2*xgap, (double)pmin.y+12*ygap, pmin.z);
 		Brick n2 = Brick(1, p1, p2);
-		n2.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, true, false);
+		n2.initMesh(true, false, true, false);
 		bricks.push_back(n2);
 
 		p1 = Point((double)pmin.x+2*xgap, (double)pmin.y+11*ygap, pmin.z);
 		p2 = Point((double)pmin.x+3*xgap, (double)pmin.y+12*ygap, pmin.z);
 		Brick n3 = Brick(2, p1, p2);
-		n3.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, false);
+		n3.initMesh(true, false, false, false);
 		bricks.push_back(n3); 
 
 		p1 = Point((double)pmin.x+3*xgap, (double)pmin.y+11*ygap, pmin.z);
 		p2 = Point((double)pmin.x+4*xgap, (double)pmin.y+12*ygap, pmin.z);
 		Brick n4 = Brick(1, p1, p2);
-		n4.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, true, false, false);
+		n4.initMesh(true, true, false, false);
 		bricks.push_back(n4);
 
 
@@ -295,13 +290,13 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+8*xgap, (double)pmin.y+11*ygap, pmin.z);
 		p2 = Point((double)pmin.x+9*xgap, (double)pmin.y+12*ygap, pmin.z);
 		Brick n35 = Brick(18, p1, p2);
-		n35.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		n35.initMesh(false, false, false, true);
 		bricks.push_back(n35);
 
 		p1 = Point((double)pmin.x+9*xgap, (double)pmin.y+11*ygap, pmin.z);
 		p2 = Point((double)pmin.x+10*xgap, (double)pmin.y+12*ygap, pmin.z);
 		Brick n36 = Brick(18, p1, p2);
-		n36.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		n36.initMesh(false, true, false, false);
 		bricks.push_back(n36);
 
 
@@ -309,38 +304,38 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+13*xgap, (double)pmin.y+11*ygap, pmin.z);
 		p2 = Point((double)pmin.x+14*xgap, (double)pmin.y+12*ygap, pmin.z);
 		Brick n63 = Brick(26, p1, p2);
-		n63.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, true, true);
+		n63.initMesh(false, false, true, true);
 		bricks.push_back(n63);
 
 		p1 = Point((double)pmin.x+14*xgap, (double)pmin.y+11*ygap, pmin.z);
 		p2 = Point((double)pmin.x+15*xgap, (double)pmin.y+12*ygap, pmin.z);
 		Brick n64 = Brick(27, p1, p2);
-		n64.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n64.initMesh(false, false, false, false);
 		bricks.push_back(n64);
 
 		p1 = Point((double)pmin.x+15*xgap, (double)pmin.y+11*ygap, pmin.z);
 		p2 = Point((double)pmin.x+16*xgap, (double)pmin.y+12*ygap, pmin.z);
 		Brick n65 = Brick(27, p1, p2);
-		n65.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n65.initMesh(false, false, false, false);
 		bricks.push_back(n65);
 
 		p1 = Point((double)pmin.x+16*xgap, (double)pmin.y+11*ygap, pmin.z);
 		p2 = Point((double)pmin.x+17*xgap, (double)pmin.y+12*ygap, pmin.z);
 		Brick n66 = Brick(26, p1, p2);
-		n66.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, true, false, false);
+		n66.initMesh(true, true, false, false);
 		bricks.push_back(n66);
 
 		//row
 		p1 = Point((double)pmin.x+3*xgap, (double)pmin.y+10*ygap, pmin.z);
 		p2 = Point((double)pmin.x+4*xgap, (double)pmin.y+11*ygap, pmin.z);
 		Brick n5 = Brick(3, p1, p2);
-		n5.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		n5.initMesh(false, true, false, false);
 		bricks.push_back(n5);
 
 		p1 = Point((double)pmin.x+2*xgap, (double)pmin.y+10*ygap, pmin.z);
 		p2 = Point((double)pmin.x+3*xgap, (double)pmin.y+11*ygap, pmin.z);
 		Brick n6 = Brick(2, p1, p2);
-		n6.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		n6.initMesh(false, false, false, true);
 		bricks.push_back(n6);
 
 
@@ -349,13 +344,13 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+8*xgap, (double)pmin.y+10*ygap, pmin.z);
 		p2 = Point((double)pmin.x+9*xgap, (double)pmin.y+11*ygap, pmin.z);
 		Brick n33 = Brick(17, p1, p2);
-		n33.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		n33.initMesh(false, false, false, true);
 		bricks.push_back(n33);
 
 		p1 = Point((double)pmin.x+9*xgap, (double)pmin.y+10*ygap, pmin.z);
 		p2 = Point((double)pmin.x+10*xgap, (double)pmin.y+11*ygap, pmin.z);
 		Brick n34 = Brick(17, p1, p2);
-		n34.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		n34.initMesh(false, true, false, false);
 		bricks.push_back(n34);
 
 
@@ -363,39 +358,39 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+14*xgap, (double)pmin.y+10*ygap, pmin.z);
 		p2 = Point((double)pmin.x+15*xgap, (double)pmin.y+11*ygap, pmin.z);
 		Brick n67 = Brick(28, p1, p2);
-		n67.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		n67.initMesh(false, false, false, true);
 		bricks.push_back(n67);
 
 		p1 = Point((double)pmin.x+15*xgap, (double)pmin.y+10*ygap, pmin.z);
 		p2 = Point((double)pmin.x+16*xgap, (double)pmin.y+11*ygap, pmin.z);
 		Brick n68 = Brick(28, p1, p2);
-		n68.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n68.initMesh(false, false, false, false);
 		bricks.push_back(n68);
 
 		p1 = Point((double)pmin.x+16*xgap, (double)pmin.y+10*ygap, pmin.z);
 		p2 = Point((double)pmin.x+17*xgap, (double)pmin.y+11*ygap, pmin.z);
 		Brick n69 = Brick(28, p1, p2);
-		n69.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		n69.initMesh(false, true, false, false);
 		bricks.push_back(n69);
 
 		//row
 		p1 = Point((double)pmin.x+3*xgap, (double)pmin.y+9*ygap, pmin.z);
 		p2 = Point((double)pmin.x+4*xgap, (double)pmin.y+10*ygap, pmin.z);
 		Brick n7 = Brick(3, p1, p2);
-		n7.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, true, false);
+		n7.initMesh(false, true, true, false);
 		bricks.push_back(n7);
 
 		p1 = Point((double)pmin.x+2*xgap, (double)pmin.y+9*ygap, pmin.z);
 		p2 = Point((double)pmin.x+3*xgap, (double)pmin.y+10*ygap, pmin.z);
 		Brick n8 = Brick(4, p1, p2);
-		n8.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n8.initMesh(false, false, false, false);
 		bricks.push_back(n8);
 
 
 		p1 = Point((double)pmin.x+1*xgap, (double)pmin.y+9*ygap, pmin.z);
 		p2 = Point((double)pmin.x+2*xgap, (double)pmin.y+10*ygap, pmin.z);
 		Brick n9 = Brick(3, p1, p2);
-		n9.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, true);
+		n9.initMesh(true, false, false, true);
 		bricks.push_back(n9);
 
 
@@ -404,13 +399,13 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+8*xgap, (double)pmin.y+9*ygap, pmin.z);
 		p2 = Point((double)pmin.x+9*xgap, (double)pmin.y+10*ygap, pmin.z);
 		Brick n31 = Brick(16, p1, p2);
-		n31.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		n31.initMesh(false, false, false, true);
 		bricks.push_back(n31);
 
 		p1 = Point((double)pmin.x+9*xgap, (double)pmin.y+9*ygap, pmin.z);
 		p2 = Point((double)pmin.x+10*xgap, (double)pmin.y+10*ygap, pmin.z);
 		Brick n32 = Brick(16, p1, p2);
-		n32.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		n32.initMesh(false, true, false, false);
 		bricks.push_back(n32);
 
 
@@ -419,32 +414,32 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+14*xgap, (double)pmin.y+9*ygap, pmin.z);
 		p2 = Point((double)pmin.x+15*xgap, (double)pmin.y+10*ygap, pmin.z);
 		Brick n70 = Brick(29, p1, p2);
-		n70.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		n70.initMesh(false, false, false, true);
 		bricks.push_back(n70);
 
 		p1 = Point((double)pmin.x+15*xgap, (double)pmin.y+9*ygap, pmin.z);
 		p2 = Point((double)pmin.x+16*xgap, (double)pmin.y+10*ygap, pmin.z);
 		Brick n71 = Brick(29, p1, p2);
-		n71.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n71.initMesh(false, false, false, false);
 		bricks.push_back(n71);
 
 		p1 = Point((double)pmin.x+16*xgap, (double)pmin.y+9*ygap, pmin.z);
 		p2 = Point((double)pmin.x+17*xgap, (double)pmin.y+10*ygap, pmin.z);
 		Brick n72 = Brick(29, p1, p2);
-		n72.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		n72.initMesh(false, true, false, false);
 		bricks.push_back(n72);
 
 		//row
 		p1 = Point((double)pmin.x+2*xgap, (double)pmin.y+8*ygap, pmin.z);
 		p2 = Point((double)pmin.x+3*xgap, (double)pmin.y+9*ygap, pmin.z);
 		Brick n10 = Brick(6, p1, p2);
-		n10.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		n10.initMesh(false, true, false, false);
 		bricks.push_back(n10);
 
 		p1 = Point((double)pmin.x+1*xgap, (double)pmin.y+8*ygap, pmin.z);
 		p2 = Point((double)pmin.x+2*xgap, (double)pmin.y+9*ygap, pmin.z);
 		Brick n11 = Brick(5, p1, p2);
-		n11.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		n11.initMesh(false, false, false, true);
 		bricks.push_back(n11);
 
 
@@ -454,13 +449,13 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+8*xgap, (double)pmin.y+8*ygap, pmin.z);
 		p2 = Point((double)pmin.x+9*xgap, (double)pmin.y+9*ygap, pmin.z);
 		Brick n29 = Brick(15, p1, p2);
-		n29.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		n29.initMesh(false, false, false, true);
 		bricks.push_back(n29);
 
 		p1 = Point((double)pmin.x+9*xgap, (double)pmin.y+8*ygap, pmin.z);
 		p2 = Point((double)pmin.x+10*xgap, (double)pmin.y+9*ygap, pmin.z);
 		Brick n30 = Brick(15, p1, p2);
-		n30.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		n30.initMesh(false, true, false, false);
 		bricks.push_back(n30);
 
 
@@ -469,74 +464,74 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+14*xgap, (double)pmin.y+8*ygap, pmin.z);
 		p2 = Point((double)pmin.x+15*xgap, (double)pmin.y+9*ygap, pmin.z);
 		Brick n73 = Brick(30, p1, p2);
-		n73.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, true);
+		n73.initMesh(false, false, false, true);
 		bricks.push_back(n73);
 
 		p1 = Point((double)pmin.x+15*xgap, (double)pmin.y+8*ygap, pmin.z);
 		p2 = Point((double)pmin.x+16*xgap, (double)pmin.y+9*ygap, pmin.z);
 		Brick n74 = Brick(30, p1, p2);
-		n74.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n74.initMesh(false, false, false, false);
 		bricks.push_back(n74);
 
 		p1 = Point((double)pmin.x+16*xgap, (double)pmin.y+8*ygap, pmin.z);
 		p2 = Point((double)pmin.x+17*xgap, (double)pmin.y+9*ygap, pmin.z);
 		Brick n75 = Brick(30, p1, p2);
-		n75.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		n75.initMesh(false, true, false, false);
 		bricks.push_back(n75);
 
 		//row
 		p1 = Point((double)pmin.x+1*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+2*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n12 = Brick(6, p1, p2);
-		n12.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, true, true);
+		n12.initMesh(false, false, true, true);
 		bricks.push_back(n12);
 
 		p1 = Point((double)pmin.x+2*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+3*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n13 = Brick(7, p1, p2);
-		n13.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n13.initMesh(false, false, false, false);
 		bricks.push_back(n13);
 
 		p1 = Point((double)pmin.x+3*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+4*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n14 = Brick(8, p1, p2);
-		n14.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, false);
+		n14.initMesh(true, false, false, false);
 		bricks.push_back(n14);
 
 		p1 = Point((double)pmin.x+4*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+5*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n18 = Brick(9, p1, p2);
-		n18.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, false);
+		n18.initMesh(true, false, false, false);
 		bricks.push_back(n18);
 
 		p1 = Point((double)pmin.x+5*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+6*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n20 = Brick(10, p1, p2);
-		n20.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, false);
+		n20.initMesh(true, false, false, false);
 		bricks.push_back(n20);
 
 		p1 = Point((double)pmin.x+6*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+7*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n23 = Brick(11, p1, p2);
-		n23.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, false);
+		n23.initMesh(true, false, false, false);
 		bricks.push_back(n23);
 
 		p1 = Point((double)pmin.x+7*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+8*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n24 = Brick(12, p1, p2);
-		n24.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, false);
+		n24.initMesh(true, false, false, false);
 		bricks.push_back(n24);
 
 		p1 = Point((double)pmin.x+8*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+9*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n27 = Brick(13, p1, p2);
-		n27.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n27.initMesh(false, false, false, false);
 		bricks.push_back(n27);
 
 		p1 = Point((double)pmin.x+9*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+10*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n28 = Brick(14, p1, p2);
-		n28.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, false, false);
+		n28.initMesh(false, true, false, false);
 		bricks.push_back(n28);
 
 
@@ -545,74 +540,74 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 		p1 = Point((double)pmin.x+13*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+14*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n76 = Brick(30, p1, p2);
-		n76.initMesh(Color(1, 1, 1), Color(1, 1, 1), true, false, false, true);
+		n76.initMesh(true, false, false, true);
 		bricks.push_back(n76);
 
 		p1 = Point((double)pmin.x+14*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+15*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n77 = Brick(30, p1, p2);
-		n77.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n77.initMesh(false, false, false, false);
 		bricks.push_back(n77);
 
 		p1 = Point((double)pmin.x+15*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+16*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n78 = Brick(30, p1, p2);
-		n78.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, false, false);
+		n78.initMesh(false, false, false, false);
 		bricks.push_back(n78);
 
 		p1 = Point((double)pmin.x+16*xgap, (double)pmin.y+7*ygap, pmin.z);
 		p2 = Point((double)pmin.x+17*xgap, (double)pmin.y+8*ygap, pmin.z);
 		Brick n79 = Brick(30, p1, p2);
-		n79.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, true, false);
+		n79.initMesh(false, true, true, false);
 		bricks.push_back(n79);
 
 		//row
 		p1 = Point((double)pmin.x+2*xgap, (double)pmin.y+6*ygap, pmin.z);
 		p2 = Point((double)pmin.x+3*xgap, (double)pmin.y+7*ygap, pmin.z);
 		Brick n15 = Brick(6, p1, p2);
-		n15.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, true, true);
+		n15.initMesh(false, false, true, true);
 		bricks.push_back(n15);
 
 		p1 = Point((double)pmin.x+3*xgap, (double)pmin.y+6*ygap, pmin.z);
 		p2 = Point((double)pmin.x+4*xgap, (double)pmin.y+7*ygap, pmin.z);
 		Brick n16 = Brick(7, p1, p2);
-		n16.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, true, false);
+		n16.initMesh(false, false, true, false);
 		bricks.push_back(n16);
 
 		p1 = Point((double)pmin.x+4*xgap, (double)pmin.y+6*ygap, pmin.z);
 		p2 = Point((double)pmin.x+5*xgap, (double)pmin.y+7*ygap, pmin.z);
 		Brick n17 = Brick(8, p1, p2);
-		n17.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, true, false);
+		n17.initMesh(false, false, true, false);
 		bricks.push_back(n17);
 
 		p1 = Point((double)pmin.x+5*xgap, (double)pmin.y+6*ygap, pmin.z);
 		p2 = Point((double)pmin.x+6*xgap, (double)pmin.y+7*ygap, pmin.z);
 		Brick n19 = Brick(9, p1, p2);
-		n19.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, true, false);
+		n19.initMesh(false, false, true, false);
 		bricks.push_back(n19);
 
 		p1 = Point((double)pmin.x+6*xgap, (double)pmin.y+6*ygap, pmin.z);
 		p2 = Point((double)pmin.x+7*xgap, (double)pmin.y+7*ygap, pmin.z);
 		Brick n21 = Brick(10, p1, p2);
-		n21.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, true, false);
+		n21.initMesh(false, false, true, false);
 		bricks.push_back(n21);
 
 		p1 = Point((double)pmin.x+7*xgap, (double)pmin.y+6*ygap, pmin.z);
 		p2 = Point((double)pmin.x+8*xgap, (double)pmin.y+7*ygap, pmin.z);
 		Brick n22 = Brick(11, p1, p2);
-		n22.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, true, false);
+		n22.initMesh(false, false, true, false);
 		bricks.push_back(n22);
 
 		p1 = Point((double)pmin.x+8*xgap, (double)pmin.y+6*ygap, pmin.z);
 		p2 = Point((double)pmin.x+9*xgap, (double)pmin.y+7*ygap, pmin.z);
 		Brick n25 = Brick(12, p1, p2);
-		n25.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, false, true, false);
+		n25.initMesh(false, false, true, false);
 		bricks.push_back(n25);
 
 		p1 = Point((double)pmin.x+9*xgap, (double)pmin.y+6*ygap, pmin.z);
 		p2 = Point((double)pmin.x+10*xgap, (double)pmin.y+7*ygap, pmin.z);
-		Brick n26 = Brick(13, p1, p2);
-		n26.initMesh(Color(1, 1, 1), Color(1, 1, 1), false, true, true, false);
+		Brick n26 = Brick(13, p1, p2, false, true, true, false);
+		//n26.initMesh(false, true, true, false);
 		bricks.push_back(n26);
 
 
