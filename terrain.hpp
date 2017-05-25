@@ -9,13 +9,16 @@
 #include "orbiter.h"
 #include "brick.hpp"
 #include <iostream>
-#include <stdlib.h> 
+#include <stdlib.h>
+#include <fstream>
+#include <string>
 
 class Terrain {
 public:
     Terrain(){};
     Terrain(int nb, Point pmn, Point pmx);
     Terrain(int h, int w, Point pmn, Point pmx);
+    Terrain(std::string fileName, Point pmn, Point pmx);
     ~Terrain(){};
     Mesh & getMesh() {return mesh;}
     std::vector<Brick> & getBricks();

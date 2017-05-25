@@ -614,6 +614,41 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 	}
 }
 
+Terrain::Terrain(std::string fileName, Point pmn, Point pmx){
+	
+    std::ifstream file;
+    file.open("proj/projet/data/field/" + fileName);
+    int h, w;
+    //Lecture de la largeur et de la hauteur
+    file >> h >> w;
+
+	size = h*w;
+	pmin = pmn;
+	pmax = pmx;
+	int modcoef = w-h;
+	double xgap = abs(pmax.x-pmin.x)/(double)w;
+	double ygap = abs(pmax.y-pmin.y)/(double)h;
+
+    int min, max, id;
+    std::string up, left, bottom, right;
+    bool bup, bleft, bbottom, bright;
+    
+    while(file >> min >> max >> up >> right >> bottom >> left >> id){
+        bup = (up == "true");
+        bright = (right == "true");
+        bbottom = (bottom == "true");
+        bleft = (left == "true");
+        std::cout << min << " " << max << " " << up << " " << right << " " << bottom << " " << left << " " << id << std::endl; 
+        Point p1, p2;
+        p1 = Point((double)pmin.x+min*xgap, (double)pmin.y+max*ygap, pmin.z);
+        p2 = Point((double)pmin.x+(min + 1)*xgap, (double)pmin.y+(max + 1)*ygap, pmin.z);
+        Brick n = Brick(id, p1, p2);
+        n.initMesh(bup, bright, bbottom, bleft);
+        bricks.push_back(n);
+    }
+
+}
+
 
 void Terrain::project(const Point& from, Point& to, Vector& n) const {
   to.z = 0 ;

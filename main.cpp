@@ -38,7 +38,8 @@ public:
     {}
     int init( )
     {
-        t = Terrain(1, Point(-48.f, -48.f, 0), Point(48.f, 48.f, 0));
+        //t = Terrain(1, Point(-48.f, -48.f, 0), Point(48.f, 48.f, 0));
+        t = Terrain("field1.field", Point(-48.f, -48.f, 0), Point(48.f, 48.f, 0));
 
         grid= Mesh(GL_TRIANGLES);
 
