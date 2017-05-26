@@ -71,5 +71,5 @@
 19 1 false false false true 31 right false false
 20 1 false false false false 31 right false false
 
-19 0 false false true true 32 right false false
-20 0 false true true false 32 right false false
+19 0 false false true true 32 right false true
+20 0 false true true false 32 right false true
