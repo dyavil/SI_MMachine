@@ -10,6 +10,7 @@
 #include "texture.h"
 #include "mat.h"
 #include "app.h" 
+#include "game.hpp"
 #include <stdio.h>
 #include <ctime>
 
@@ -34,12 +35,14 @@ public:
     // constructeur : donner les dimensions de l'image, et eventuellement la version d'openGL.
     Projet( ) : App(1024, 640),
     controller1(SDLK_UP, SDLK_DOWN, SDLK_LEFT, SDLK_RIGHT),
-    controller2('z', 's', 'q', 'd')
+    controller2('z', 's', 'q', 'd'),
+    game(player1, player2, 1)
     {}
     int init( )
     {
         //t = Terrain(1, Point(-48.f, -48.f, 0), Point(48.f, 48.f, 0));
         t = Terrain("field1.field");
+
 
         grid= Mesh(GL_TRIANGLES);
 
@@ -71,7 +74,7 @@ public:
         car2 = read_mesh("MMachine/mmachine.obj");
         car2.default_color(Color(0.0f, 0.f, 1.f));
 
-        Point car1min, car1max, car2min, car2max;
+        
         car1.bounds(car1min, car1max);
         car2.bounds(car2min, car2max);
         player1.set_terrain(&t) ;
@@ -83,6 +86,7 @@ public:
         player2.set_controller(&controller2) ;
         player2.spawn_at(Point(t.getSpawn().x, t.getSpawn().y+1, 0), Vector(1,0,0), car2min, car2max) ;
         player2.activate() ;
+
 
         mTexture0 = read_texture(0, "proj/projet/data/liege.jpg");
         shaderProgram= read_program("proj/projet/brick.glsl");
@@ -137,7 +141,7 @@ public:
             t.getBricks()[i].getMesh().draw(shaderProgram);
             program_uniform(shaderProgram, "type", 0);
             //*t.getBricks()[i].getBottomTransform()
-            for (int j = 0; j < t.getBricks()[i].getBorders().size(); ++j)
+            for (unsigned int j = 0; j < t.getBricks()[i].getBorders().size(); ++j)
             {
                 program_uniform(shaderProgram, "transform", t.getBricks()[i].getTransforms()[j]);
                 t.getBricks()[i].getBorders()[j].draw(shaderProgram);
@@ -152,7 +156,35 @@ public:
     	player2.collideOther(player1.getBox());
         //std::cout << "Ahead : " << t.whosAhead(player1.getPos(), player2.getPos()) << ", p1 sur " << t.getBrickOn(player1.getPos()).getPosition() << std::endl;
         //std::cout << "p1 in : " << player1.getBox().getPmin() << std::endl;
+        static bool victor = false;
+        if (t.whosAhead(player1.getPos(), player2.getPos()) == 1)
+        {
+            if (t.getBrickOn(player1.getPos()).getIsEnd())
+            {
+                std::cout << "Player 1 win " << std::endl;
+                victor = game.winRound(1);
+                player1.spawn_at(Point(t.getSpawn().x, t.getSpawn().y-1, 0), Vector(1,0,0), car1min, car1max) ;
+                player1.activate() ;
+                player2.spawn_at(Point(t.getSpawn().x, t.getSpawn().y+1, 0), Vector(1,0,0), car2min, car2max) ;
+                player2.activate() ;
+            }
+        }else{
+            if (t.getBrickOn(player2.getPos()).getIsEnd())
+            {
+                std::cout << "Player 2 win " << std::endl;
+                victor = game.winRound(2);
+                player1.spawn_at(Point(t.getSpawn().x, t.getSpawn().y-1, 0), Vector(1,0,0), car1min, car1max) ;
+                player1.activate() ;
+                player2.spawn_at(Point(t.getSpawn().x, t.getSpawn().y+1, 0), Vector(1,0,0), car2min, car2max) ;
+                player2.activate() ;
 
+            }
+        }
+        //if (victor)
+        //{
+        draw(game.getWinMesh(), Scale(10, 10, 10), camera);
+        //}
+        //std::cout << victor << std::endl;
         return 1;   // on continue, renvoyer 0 pour sortir de l'application
     }
 
@@ -168,7 +200,7 @@ public:
         {
             //draw(meshes[i], camera);
             t.getBricks()[i].getMesh().release();
-            for (int j = 0; j < t.getBricks()[i].getBorders().size(); ++j)
+            for (unsigned int j = 0; j < t.getBricks()[i].getBorders().size(); ++j)
             {
                 t.getBricks()[i].getBorders()[j].release();
             }
@@ -208,6 +240,7 @@ public:
     }*/
 protected:
     Orbiter camera;
+    
     Mesh mesh;
     Mesh grid;
     Mesh car1;
@@ -221,6 +254,9 @@ protected:
     GLuint shaderProgram;
     KeyboardController controller1;
     KeyboardController controller2;
+    Game game;
+
+    Point car1min, car1max, car2min, car2max;
 };
 
 int main( int argc, char **argv )

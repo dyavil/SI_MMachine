@@ -17,7 +17,7 @@ class Brick {
 public:
     Brick(){};
     Brick(int p, Point pn, Point px):position(p), pmin(pn), pmax(px){};
-    Brick(int p, Point pn, Point px, const bool top, const bool right, const bool bottom, const bool left, const std::string objective = "right");
+    Brick(int p, Point pn, Point px, const bool top, const bool right, const bool bottom, const bool left, const std::string objective = "right", const bool isend = false);
     ~Brick(){};
     int getPosition();
     void setPosition(Point pmn, Point pmx);
@@ -27,6 +27,7 @@ public:
     std::vector<Transform> & getTransforms(){return transforms;};
     float getDistance(const Point & p);
     bool isIn(const Point & p);
+    bool getIsEnd(){return isEnd;};
     int collideSide(CollideBox & box);
     
 
@@ -44,6 +45,7 @@ private:
     bool rightB;
     bool bottomB;
     bool leftB;
+    bool isEnd;
     CollideBox topBox;
     CollideBox rightBox;
     CollideBox bottomBox;

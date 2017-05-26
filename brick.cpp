@@ -4,10 +4,11 @@ int Brick::getPosition(){
 	return position;
 }
 
-Brick::Brick(int p, Point pn, Point px, const bool top, const bool right, const bool bottom, const bool left, const std::string objective){
+Brick::Brick(int p, Point pn, Point px, const bool top, const bool right, const bool bottom, const bool left, const std::string objective, const bool isend){
 	position = p;
 	pmin = pn;
 	pmax = px;
+	isEnd = isend;
 	initMesh(top, right, bottom, left);
 	setObjective(objective);
 }
@@ -140,7 +141,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 
 	//top + bottom 
 	if(top && bottom && !right && !left){
-		Mesh topbottomMesh = read_mesh("proj/projet/data/case11.obj");
+		Mesh topbottomMesh = read_mesh("proj/projet/data/case111.obj");
 		Point tpmax, tpmin;
 		topbottomMesh.bounds(tpmin, tpmax);
 		Point cent = center(tpmin, tpmax);
@@ -152,7 +153,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 	}
 	//right + left
 	if(!top && !bottom && right && left){
-		Mesh rightleftMesh = read_mesh("proj/projet/data/case11.obj");
+		Mesh rightleftMesh = read_mesh("proj/projet/data/case111.obj");
 		Point tpmax, tpmin;
 		rightleftMesh.bounds(tpmin, tpmax);
 		Point cent = center(tpmin, tpmax);
