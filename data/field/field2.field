@@ -1,0 +1,75 @@
+21 21
+
+0 10 true true false true 0 bottom true false
+
+0 9 false false false true 1 bottom false false
+1 9 true true false false 2 bottom false false
+
+0 8 false false true true 2 right false false
+1 8 false false true false 3 right false false
+2 8 true false true false 4 right false false
+3 8 true false false false 5 bottom false false
+4 8 true false false false 6 bottom false false
+16 8 true false false true 20 right false false
+17 8 true false false false 21 right false false
+18 8 true false false false 22 right false false
+19 8 true false false false 23 bottom false false
+20 8 true true false false 22 bottom false false
+
+3 7 false false false true 6 right false false
+4 7 false false false false 7 right false false
+5 7 true false false false 8 right false false
+6 7 true false false false 9 right false false
+7 7 true false false false 10 right false false
+8 7 true true false false 11 bottom false false
+9 7 true false false false 12 right false false
+10 7 true false false false 13 right false false
+11 7 true false false true 14 bottom false false
+16 7 false false false true 21 right false false
+17 7 false false false false 22 right false false
+18 7 false false true false 23 right false false
+19 7 false false false false 24 bottom false false
+20 7 false true false false 23 bottom false false
+
+3 6 false false false true 7 bottom false false
+4 6 false false false false 8 bottom false false
+7 6 false false false false 11 right false false
+8 6 false false false false 12 right false false
+9 6 false false false false 13 right false false
+10 6 false false true false 14 right false false
+11 6 false false false false 15 right false false
+12 6 true false true false 16 right false false
+13 6 true false true false 17 right false false
+14 6 true false true false 18 right false false
+15 6 true false true false 19 right false false
+16 6 false false true false 20 top false false
+17 6 false false true false 21 top false false
+19 6 false false false true 25 bottom false false
+20 6 false true true false 24 left false false
+
+3 5 false false true true 8 right false false
+4 5 false false true false 9 right false false
+5 5 false false true false 10 right false false
+6 5 false false true false 11 right false false
+7 5 false false true false 11 right false false
+8 5 false false true false 12 right false false
+9 5 false false true false 12 top false false
+10 5 false false true false 13 right false false
+11 5 false true true false 14 top false false
+19 5 false false false true 26 bottom false false
+20 5 false true false false 27 bottom false false
+
+19 4 false false false true 27 right false false
+20 4 false true false false 28 right false false
+
+19 3 false false true true 28 right false false
+20 3 false false false false 29 right false false
+
+19 2 false false false true 30 right false false
+20 2 false false false false 30 right false false
+
+19 1 false false false true 31 right false false
+20 1 false false false false 31 right false false
+
+19 0 false false true true 32 right false false
+20 0 false true true false 32 right false false
