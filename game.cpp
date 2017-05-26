@@ -8,10 +8,11 @@ Game::Game(Player& p1, Player& p2, int nbLap){
     nbRound = nbLap;
     score.first = 0;
     score.second = 0;
+    winMesh = read_mesh("proj/projet/data/case111.obj");
 }
 
 
-void Game::winRound(const int idPlayer){
+bool Game::winRound(const int idPlayer){
     if(idPlayer == 1){
         score.first++;
     }
@@ -24,5 +25,7 @@ void Game::winRound(const int idPlayer){
     }
     else{
         std::cout << "C'était le dernier tour FDP" << std::endl;
+        return true;
     }
+    return false;
 }

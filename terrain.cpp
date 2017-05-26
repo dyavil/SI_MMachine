@@ -647,7 +647,7 @@ Terrain::Terrain(std::string fileName){
         Point p1, p2;
         p1 = Point((double)pmin.x+min*xgap, (double)pmin.y+max*ygap, pmin.z);
         p2 = Point((double)pmin.x+(min + 1)*xgap, (double)pmin.y+(max + 1)*ygap, pmin.z);
-        Brick n = Brick(id, p1, p2, bup, bright, bbottom, bleft, objective);
+        Brick n = Brick(id, p1, p2, bup, bright, bbottom, bleft, objective, bend);
         if (bstart)
         {
         	spawnPoint = Point(p1.x + 2, p1.y + 3, 0);
