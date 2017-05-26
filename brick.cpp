@@ -4,18 +4,41 @@ int Brick::getPosition(){
 	return position;
 }
 
-Brick::Brick(int p, Point pn, Point px, const bool top, const bool right, const bool bottom, const bool left){
+Brick::Brick(int p, Point pn, Point px, const bool top, const bool right, const bool bottom, const bool left, const std::string objective){
 	position = p;
 	pmin = pn;
 	pmax = px;
 	initMesh(top, right, bottom, left);
+	setObjective(objective);
+}
+
+
+void Brick::setObjective(std::string border){
+	if (border == "top")
+	{
+		pobj1 = Point(pmin.x, pmax.y, 0);
+		pobj2 = pmax;
+	}
+	else if (border == "right")
+	{
+		pobj1 = pmax;
+		pobj2 = Point(pmax.x, pmin.y, 0);
+	}
+	else if (border == "bottom")
+	{
+		pobj1 = pmin;
+		pobj2 = Point(pmax.x, pmin.y, 0);
+	}
+	//left
+	else{
+		pobj1 = Point(pmin.x, pmax.y, 0);
+		pobj2 = pmin;
+	}
 }
 
 void Brick::initMesh(const bool top, const bool right, const bool bottom, const bool left){
 	tempm = Mesh(GL_TRIANGLES);
-	
-	pobj1 = pmax;
-	pobj2 = Point(pmax.x, pmin.y, 0);
+
 
 	/////////////////////////////////////////////
 
@@ -136,7 +159,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 		Point cent2 = center(pmin, pmax);
 		float te1 = pmax.x-pmin.x;
 		float te2 = pmax.y-pmin.y;
-		std::cout << te1 << std::endl;
+		//std::cout << te1 << std::endl;
 		transforms.push_back((Translation(pmin-Point(tpmin.x-te1, tpmin.y-te2, tpmax.z)))*(RotationY(90))*(RotationZ(90))*(RotationY(90)));
 		borders.push_back(rightleftMesh);
 	}
@@ -149,7 +172,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 		Point cent2 = center(pmin, pmax);
 		float te1 = pmax.x-pmin.x;
 		float te2 = pmax.y-pmin.y;
-		std::cout << te1 << std::endl;
+		//std::cout << te1 << std::endl;
 		transforms.push_back((Translation(pmin-Point(tpmin.x, tpmin.y, tpmax.z)))*(RotationY(90))*(RotationZ(90))*(RotationY(270)));
 		borders.push_back(toprightMesh);
 	}
@@ -163,7 +186,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 		Point cent2 = center(pmin, pmax);
 		float te1 = pmax.x-pmin.x;
 		float te2 = pmax.y-pmin.y;
-		std::cout << "yol" << std::endl;
+		//std::cout << "yol" << std::endl;
 		transforms.push_back((Translation(pmin-Point(tpmin.x-te1, tpmin.y, tpmax.z)))*(RotationY(90))*(RotationZ(90)));
 		borders.push_back(topleftMesh);
 	}
@@ -177,7 +200,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 		Point cent2 = center(pmin, pmax);
 		float te1 = pmax.x-pmin.x;
 		float te2 = pmax.y-pmin.y;
-		std::cout << bottomrightMesh.texcoord_buffer_size() << std::endl;
+		//std::cout << bottomrightMesh.texcoord_buffer_size() << std::endl;
 		transforms.push_back((Translation(pmin-Point(tpmin.x, tpmin.y-te2, tpmax.z)))*(RotationY(90))*(RotationZ(90))*(RotationY(-180)));
 		borders.push_back(bottomrightMesh);
 	}
@@ -191,7 +214,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 		Point cent2 = center(pmin, pmax);
 		float te1 = pmax.x-pmin.x;
 		float te2 = pmax.y-pmin.y;
-		std::cout << te1 << std::endl;
+		//std::cout << te1 << std::endl;
 		transforms.push_back((Translation(pmin-Point(tpmin.x-te1, tpmin.y-te2, tpmax.z)))*(RotationY(90))*(RotationZ(90))*(RotationY(90)));
 		borders.push_back(bottomleftMesh);
 	}
@@ -205,7 +228,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 		Point cent2 = center(pmin, pmax);
 		float te1 = pmax.x-pmin.x;
 		float te2 = pmax.y-pmin.y;
-		std::cout << te1 << std::endl;
+		//std::cout << te1 << std::endl;
 		transforms.push_back((Translation(pmin-Point(tpmin.x, tpmin.y-te2, tpmax.z)))*(RotationY(90))*(RotationZ(90))*RotationY(180));
 		borders.push_back(topMesh);
 	}
@@ -219,7 +242,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 		Point cent2 = center(pmin, pmax);
 		float te1 = pmax.x-pmin.x;
 		float te2 = pmax.y-pmin.y;
-		std::cout << te1 << std::endl;
+		//std::cout << te1 << std::endl;
 		transforms.push_back((Translation(pmin-Point(tpmin.x-te1, tpmin.y, tpmax.z)))*(RotationY(90))*(RotationZ(90)));
 		borders.push_back(bottomMesh);
 	}
@@ -233,7 +256,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 		Point cent2 = center(pmin, pmax);
 		float te1 = pmax.x-pmin.x;
 		float te2 = pmax.y-pmin.y;
-		std::cout << te1 << std::endl;
+		//std::cout << te1 << std::endl;
 		transforms.push_back((Translation(pmin-Point(tpmin.x-te1, tpmin.y-te2, tpmax.z)))*(RotationY(90))*(RotationZ(90))*RotationY(-270));
 		borders.push_back(topMesh);
 	}
@@ -246,7 +269,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 		Point cent2 = center(pmin, pmax);
 		float te1 = pmax.x-pmin.x;
 		float te2 = pmax.y-pmin.y;
-		std::cout << te1 << std::endl;
+		//std::cout << te1 << std::endl;
 		transforms.push_back((Translation(pmin-Point(tpmin.x, tpmin.y, tpmax.z)))*(RotationY(90))*(RotationZ(90))*(RotationY(-90)));
 		borders.push_back(topMesh);
 	}

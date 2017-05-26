@@ -18,7 +18,7 @@ public:
     Terrain(){};
     Terrain(int nb, Point pmn, Point pmx);
     Terrain(int h, int w, Point pmn, Point pmx);
-    Terrain(std::string fileName, Point pmn, Point pmx);
+    Terrain(std::string fileName);
     ~Terrain(){};
     Mesh & getMesh() {return mesh;}
     std::vector<Brick> & getBricks();
@@ -26,6 +26,9 @@ public:
     void project(const Point& from, Point& to, Vector& n) const;
     Brick & getBrickOn(const Point& p);
     int whosAhead(const Point& p1, const Point& p2);
+    Point & getPmin(){return pmin;};
+    Point & getPmax(){return pmax;};
+    Point & getSpawn(){return spawnPoint;};
 
 private:
     Mesh mesh;
@@ -33,6 +36,7 @@ private:
     std::vector<Brick> bricks;
     Point pmin;
     Point pmax;
+    Point spawnPoint;
 } ;
 
 

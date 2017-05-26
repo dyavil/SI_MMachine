@@ -614,36 +614,45 @@ Terrain::Terrain(int nb, Point pmn, Point pmx){
 	}
 }
 
-Terrain::Terrain(std::string fileName, Point pmn, Point pmx){
+Terrain::Terrain(std::string fileName){
 	
     std::ifstream file;
     file.open("proj/projet/data/field/" + fileName);
     int h, w;
     //Lecture de la largeur et de la hauteur
     file >> h >> w;
-
+    float rangex = h*6/2;
+    float rangey = w*6/2;
+    pmin = Point(-rangex, -rangey, 0);
+    pmax = Point(rangex, rangey, 0);
 	size = h*w;
-	pmin = pmn;
-	pmax = pmx;
+	/*pmin = pmn;
+	pmax = pmx;*/
 	int modcoef = w-h;
 	double xgap = abs(pmax.x-pmin.x)/(double)w;
 	double ygap = abs(pmax.y-pmin.y)/(double)h;
-
+	std::string objective;
     int min, max, id;
-    std::string up, left, bottom, right;
-    bool bup, bleft, bbottom, bright;
+    std::string up, left, bottom, right, start, end;
+    bool bup, bleft, bbottom, bright, bstart, bend;
     
-    while(file >> min >> max >> up >> right >> bottom >> left >> id){
+    while(file >> min >> max >> up >> right >> bottom >> left >> id >> objective >> start >> end){
         bup = (up == "true");
         bright = (right == "true");
         bbottom = (bottom == "true");
         bleft = (left == "true");
-        std::cout << min << " " << max << " " << up << " " << right << " " << bottom << " " << left << " " << id << std::endl; 
+        bstart = (start == "true");
+        bend = (end == "true");
+        //std::cout << min << " " << max << " " << up << " " << right << " " << bottom << " " << left << " " << id << std::endl; 
         Point p1, p2;
         p1 = Point((double)pmin.x+min*xgap, (double)pmin.y+max*ygap, pmin.z);
         p2 = Point((double)pmin.x+(min + 1)*xgap, (double)pmin.y+(max + 1)*ygap, pmin.z);
-        Brick n = Brick(id, p1, p2);
-        n.initMesh(bup, bright, bbottom, bleft);
+        Brick n = Brick(id, p1, p2, bup, bright, bbottom, bleft, objective);
+        if (bstart)
+        {
+        	spawnPoint = Point(p1.x + 2, p1.y + 3, 0);
+        }
+        //n.initMesh(bup, bright, bbottom, bleft);
         bricks.push_back(n);
     }
 

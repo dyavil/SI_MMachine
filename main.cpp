@@ -39,7 +39,7 @@ public:
     int init( )
     {
         //t = Terrain(1, Point(-48.f, -48.f, 0), Point(48.f, 48.f, 0));
-        t = Terrain("field1.field", Point(-48.f, -48.f, 0), Point(48.f, 48.f, 0));
+        t = Terrain("field1.field");
 
         grid= Mesh(GL_TRIANGLES);
 
@@ -65,7 +65,7 @@ public:
         std::vector<Brick> tb = t.getBricks();
         camera = Orbiter();
         mesh = t.getMesh();
-        camera.lookat(Point(-48.f, -48.f, 0), Point(48.f, 48.f, 0));
+        camera.lookat(t.getPmin(), t.getPmax());
         car1 = read_mesh("MMachine/mmachine.obj");
         car1.default_color(Color(1.0f, 0.f, 0.f));
         car2 = read_mesh("MMachine/mmachine.obj");
@@ -76,12 +76,12 @@ public:
         car2.bounds(car2min, car2max);
         player1.set_terrain(&t) ;
         player1.set_controller(&controller1) ;
-        player1.spawn_at(Point(-20.5,20.5,0), Vector(1,0,0), car1min, car1max) ;
+        player1.spawn_at(Point(t.getSpawn().x, t.getSpawn().y-1, 0), Vector(1,0,0), car1min, car1max) ;
         player1.activate() ;
 
         player2.set_terrain(&t) ;
         player2.set_controller(&controller2) ;
-        player2.spawn_at(Point(-20.5,21.5,0), Vector(1,0,0), car2min, car2max) ;
+        player2.spawn_at(Point(t.getSpawn().x, t.getSpawn().y+1, 0), Vector(1,0,0), car2min, car2max) ;
         player2.activate() ;
 
         mTexture0 = read_texture(0, "proj/projet/data/liege.jpg");
