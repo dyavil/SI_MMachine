@@ -7,10 +7,10 @@ class Game{
 
 public:
     //Game(){};
-    Game(Player& p1, Player& p2, int nbLap);
+    Game(Player& p1, Player& p2, const int nbLap);
     ~Game(){};
 
-    void winRound(int idPlayer);
+    void winRound(const int idPlayer);
 
 private:
     Player player1;

@@ -11,7 +11,7 @@ Game::Game(Player& p1, Player& p2, int nbLap){
 }
 
 
-void Game::winRound(int idPlayer){
+void Game::winRound(const int idPlayer){
     if(idPlayer == 1){
         score.first++;
     }
