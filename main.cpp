@@ -41,13 +41,13 @@ public:
     int init( )
     {
         //t = Terrain(1, Point(-48.f, -48.f, 0), Point(48.f, 48.f, 0));
-        t = Terrain("field2.field");
+        t = Terrain("field1.field");
 
 
         grid= Mesh(GL_TRIANGLES);
 
-        for(int z= -50; z < 52; z++)
-        for(int x= -60; x < 60; x++)
+        for(int z= -80; z < 72; z++)
+        for(int x= -80; x < 80; x++)
         {
             //grid.normal(0, 0, 1);
             grid.vertex(x, z, -1);
@@ -157,33 +157,50 @@ public:
         //std::cout << "Ahead : " << t.whosAhead(player1.getPos(), player2.getPos()) << ", p1 sur " << t.getBrickOn(player1.getPos()).getPosition() << std::endl;
         //std::cout << "p1 in : " << player1.getBox().getPmin() << std::endl;
         static bool victor = false;
-        if (t.whosAhead(player1.getPos(), player2.getPos()) == 1)
-        {
-            if (t.getBrickOn(player1.getPos()).getIsEnd())
+        float distP = 0.0;
+        if(!victor){
+            distP = distance(player1.getPos(), player2.getPos());
+            if (t.whosAhead(player1.getPos(), player2.getPos()) == 1)
             {
-                std::cout << "Player 1 win " << std::endl;
-                victor = game.winRound(1);
-                player1.spawn_at(Point(t.getSpawn().x, t.getSpawn().y-1, 0), Vector(1,0,0), car1min, car1max) ;
-                player1.activate() ;
-                player2.spawn_at(Point(t.getSpawn().x, t.getSpawn().y+1, 0), Vector(1,0,0), car2min, car2max) ;
-                player2.activate() ;
-            }
-        }else{
-            if (t.getBrickOn(player2.getPos()).getIsEnd())
-            {
-                std::cout << "Player 2 win " << std::endl;
-                victor = game.winRound(2);
-                player1.spawn_at(Point(t.getSpawn().x, t.getSpawn().y-1, 0), Vector(1,0,0), car1min, car1max) ;
-                player1.activate() ;
-                player2.spawn_at(Point(t.getSpawn().x, t.getSpawn().y+1, 0), Vector(1,0,0), car2min, car2max) ;
-                player2.activate() ;
 
+                if (t.getBrickOn(player1.getPos()).getIsEnd())
+                {
+                    std::cout << "Player 1 win " << std::endl;
+                    victor = game.winRound(1);
+                    player1.spawn_at(Point(t.getSpawn().x, t.getSpawn().y-1, 0), Vector(1,0,0), car1min, car1max) ;
+                    player1.activate() ;
+                    player2.spawn_at(Point(t.getSpawn().x, t.getSpawn().y+1, 0), Vector(1,0,0), car2min, car2max) ;
+                    player2.activate() ;
+                }
+                camera.lookat(Point(player1.getPos().x-17.0, player1.getPos().y-17.0, 0) , Point(player1.getPos().x+17.0, player1.getPos().y+17.0, 0));
+                if (distance(player1.getPos(), Point(player1.getPos().x-17.0, player1.getPos().y-17.0, 0)) < distP){
+                    std::cout << "p2 out" << std::endl;
+                    victor = game.winRound(1);
+                }
+                
+            }else{
+                if (t.getBrickOn(player2.getPos()).getIsEnd())
+                {
+                    std::cout << "Player 2 win " << std::endl;
+                    victor = game.winRound(2);
+                    player1.spawn_at(Point(t.getSpawn().x, t.getSpawn().y-1, 0), Vector(1,0,0), car1min, car1max) ;
+                    player1.activate() ;
+                    player2.spawn_at(Point(t.getSpawn().x, t.getSpawn().y+1, 0), Vector(1,0,0), car2min, car2max) ;
+                    player2.activate() ;
+
+                }
+                camera.lookat(Point(player2.getPos().x-17.0, player2.getPos().y-17.0, 0) , Point(player2.getPos().x+17.0, player2.getPos().y+17.0, 0));
+                if (distance(player2.getPos(), Point(player2.getPos().x-17.0, player2.getPos().y-17.0, 0)) < distP){
+                    std::cout << "p1 out" << std::endl;
+                    victor = game.winRound(2);
+                }
             }
         }
-        //if (victor)
-        //{
-        draw(game.getWinMesh(), Scale(10, 10, 10), camera);
-        //}
+        else
+        {
+            camera.lookat(t.getPmin(), t.getPmax());
+            draw(game.getWinMesh(), Scale(10, 10, 10)*RotationX(90), camera);
+        }
         //std::cout << victor << std::endl;
         return 1;   // on continue, renvoyer 0 pour sortir de l'application
     }

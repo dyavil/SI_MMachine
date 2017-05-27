@@ -166,7 +166,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 	}
 	//top right
 	if(top && !bottom && right && !left){
-		Mesh toprightMesh = read_mesh("proj/projet/data/case2.obj");
+		Mesh toprightMesh = read_mesh("proj/projet/data/case22.obj");
 		Point tpmax, tpmin;
 		toprightMesh.bounds(tpmin, tpmax);
 		Point cent = center(tpmin, tpmax);
@@ -180,7 +180,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 
 	//top left
 	if(top && !bottom && !right && left){
-		Mesh topleftMesh = read_mesh("proj/projet/data/case2.obj");
+		Mesh topleftMesh = read_mesh("proj/projet/data/case22.obj");
 		Point tpmax, tpmin;
 		topleftMesh.bounds(tpmin, tpmax);
 		Point cent = center(tpmin, tpmax);
@@ -194,7 +194,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 
 	//bottom right
 	if(!top && bottom && right && !left){
-		Mesh bottomrightMesh = read_mesh("proj/projet/data/case2.obj");
+		Mesh bottomrightMesh = read_mesh("proj/projet/data/case22.obj");
 		Point tpmax, tpmin;
 		bottomrightMesh.bounds(tpmin, tpmax);
 		Point cent = center(tpmin, tpmax);
@@ -208,7 +208,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 
 	//bottom left
 	if(!top && bottom && !right && left){
-		Mesh bottomleftMesh = read_mesh("proj/projet/data/case2.obj");
+		Mesh bottomleftMesh = read_mesh("proj/projet/data/case22.obj");
 		Point tpmax, tpmin;
 		bottomleftMesh.bounds(tpmin, tpmax);
 		Point cent = center(tpmin, tpmax);
@@ -222,7 +222,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 
 	//top 
 	if(top && !bottom && !right && !left){
-		Mesh topMesh = read_mesh("proj/projet/data/case0.obj");
+		Mesh topMesh = read_mesh("proj/projet/data/case00.obj");
 		Point tpmax, tpmin;
 		topMesh.bounds(tpmin, tpmax);
 		Point cent = center(tpmin, tpmax);
@@ -236,7 +236,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 
 	//bottom 
 	if(!top && bottom && !right && !left){
-		Mesh bottomMesh = read_mesh("proj/projet/data/case0.obj");
+		Mesh bottomMesh = read_mesh("proj/projet/data/case00.obj");
 		Point tpmax, tpmin;
 		bottomMesh.bounds(tpmin, tpmax);
 		Point cent = center(tpmin, tpmax);
@@ -250,7 +250,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 
 	//right
 	if(!top && !bottom && right && !left){
-		Mesh topMesh = read_mesh("proj/projet/data/case0.obj");
+		Mesh topMesh = read_mesh("proj/projet/data/case00.obj");
 		Point tpmax, tpmin;
 		topMesh.bounds(tpmin, tpmax);
 		Point cent = center(tpmin, tpmax);
@@ -263,7 +263,7 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 	}
 	//left
 	if(!top && !bottom && !right && left){
-		Mesh topMesh = read_mesh("proj/projet/data/case0.obj");
+		Mesh topMesh = read_mesh("proj/projet/data/case00.obj");
 		Point tpmax, tpmin;
 		topMesh.bounds(tpmin, tpmax);
 		Point cent = center(tpmin, tpmax);
@@ -273,6 +273,20 @@ void Brick::initMesh(const bool top, const bool right, const bool bottom, const 
 		//std::cout << te1 << std::endl;
 		transforms.push_back((Translation(pmin-Point(tpmin.x, tpmin.y, tpmax.z)))*(RotationY(90))*(RotationZ(90))*(RotationY(-90)));
 		borders.push_back(topMesh);
+	}
+
+	//top right left
+	if(top && !bottom && right && left){
+		Mesh toprightMesh = read_mesh("proj/projet/data/case3.obj");
+		Point tpmax, tpmin;
+		toprightMesh.bounds(tpmin, tpmax);
+		Point cent = center(tpmin, tpmax);
+		Point cent2 = center(pmin, pmax);
+		float te1 = pmax.x-pmin.x;
+		float te2 = pmax.y-pmin.y;
+		//std::cout << te1 << std::endl;
+		transforms.push_back((Translation(pmin-Point(tpmin.x, tpmin.y, tpmax.z)))*(RotationY(90))*(RotationZ(90))*(RotationY(270)));
+		borders.push_back(toprightMesh);
 	}
 
 	

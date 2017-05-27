@@ -8,7 +8,7 @@ Game::Game(Player& p1, Player& p2, int nbLap){
     nbRound = nbLap;
     score.first = 0;
     score.second = 0;
-    winMesh = read_mesh("proj/projet/data/case111.obj");
+    winMesh = read_mesh("proj/projet/data/win.obj");
 }
 
 
