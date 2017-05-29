@@ -43,6 +43,10 @@ void main( )
 
         gl_Position= mvpMatrix * vec4(newpos, 1);
     }
+    else if(type == 3){
+        color= vec3(1, 1, 1);
+        gl_Position= mvpMatrix* transform * vec4(position, 1);
+    }
     else{
         color= vec3(0, 1, 0);
         
@@ -110,11 +114,11 @@ void main( )
 {
     // utiliser l'orientation pour modifier la couleur de base... a completer
     //vec3 MaterialAmbientColor = vec3(0.2,0.2,0.2) * vec3(1, 0.5, 0);
-    if(type1 > 0.5 && type1 < 1.5){
+    if((type1 > 0.5 && type1 < 1.5) || type1 > 2.5){
         vec4 color= texture(texture0, vertex_texcoord)*orientation;
         gl_FragColor = color;
     }
-    else if (type1 > 1.5)
+    else if (type1 > 1.5 && type1 < 2.5)
     {
         gl_FragColor= /*vec4(MaterialAmbientColor, 1) + */(vec4(color, 1)*orientation); 
     }

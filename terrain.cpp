@@ -655,7 +655,8 @@ Terrain::Terrain(std::string fileName){
         //n.initMesh(bup, bright, bbottom, bleft);
         bricks.push_back(n);
     }
-
+    Brick out = Brick(-1, Point(0, 0, -50), Point(0, 0, -50), false, false, false, false, "empty", false);
+    bricks.push_back(out);
 }
 
 
@@ -669,7 +670,7 @@ Brick & Terrain::getBrickOn(const Point & p){
 	{
 		if(bricks[i].isIn(p)) return bricks[i];
 	}
-	return bricks[0];
+	return bricks[bricks.size()-1];
 }
 
 int Terrain::whosAhead(const Point& p1, const Point& p2){

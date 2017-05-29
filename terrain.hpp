@@ -22,12 +22,20 @@ public:
     ~Terrain(){};
     Mesh & getMesh() {return mesh;}
     std::vector<Brick> & getBricks();
+
+    //retourne la taille du terrain (H*W)
     int getSize(){return size;}
     void project(const Point& from, Point& to, Vector& n) const;
+
+    //retoune une reference de la brick sur laquelle est p
     Brick & getBrickOn(const Point& p);
+
+    //retourne 1 si p1 est devant, 2 sinon
     int whosAhead(const Point& p1, const Point& p2);
     Point & getPmin(){return pmin;};
     Point & getPmax(){return pmax;};
+
+    //retourne le point de départ des joueurs pour le terrain
     Point & getSpawn(){return spawnPoint;};
 
 private:

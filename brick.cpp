@@ -11,6 +11,7 @@ Brick::Brick(int p, Point pn, Point px, const bool top, const bool right, const 
 	isEnd = isend;
 	initMesh(top, right, bottom, left);
 	setObjective(objective);
+	
 }
 
 
