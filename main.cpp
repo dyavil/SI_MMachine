@@ -173,7 +173,7 @@ public:
                     player2.activate() ;
                 }
                 camera.lookat(Point(player1.getPos().x-17.0, player1.getPos().y-17.0, 0) , Point(player1.getPos().x+17.0, player1.getPos().y+17.0, 0));
-                if (distance(player1.getPos(), Point(player1.getPos().x-17.0, player1.getPos().y-17.0, 0)) < distP){
+                if (distance(player1.getPos(), Point(player1.getPos().x-17.0, player1.getPos().y-17.0, 0))+4 < distP){
                     std::cout << "p2 out" << std::endl;
                     victor = game.winRound(1);
                 }
@@ -190,7 +190,7 @@ public:
 
                 }
                 camera.lookat(Point(player2.getPos().x-17.0, player2.getPos().y-17.0, 0) , Point(player2.getPos().x+17.0, player2.getPos().y+17.0, 0));
-                if (distance(player2.getPos(), Point(player2.getPos().x-17.0, player2.getPos().y-17.0, 0)) < distP){
+                if (distance(player2.getPos(), Point(player2.getPos().x-17.0, player2.getPos().y-17.0, 0))+4 < distP){
                     std::cout << "p1 out" << std::endl;
                     victor = game.winRound(2);
                 }
