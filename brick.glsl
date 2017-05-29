@@ -39,7 +39,7 @@ void main( )
     else if(type == 2){
         color= vec3(0, 0.5, 0.8);
 
-        newpos.z += (sin(newpos.y*20+time*0.003)+cos(newpos.x*20+time*0.003))*0.5;
+        newpos.z += (sin(newpos.y*50+time*0.003)+cos(newpos.x*50+time*0.003))*0.48;
 
         gl_Position= mvpMatrix * vec4(newpos, 1);
     }
@@ -64,8 +64,8 @@ void main( )
    {
         vec3 a = vec3(position.x+1, position.y, 0);   
         vec3 b = vec3(position.x, position.y+1, 0);
-        a.z += (sin(a.y*20+time*0.003)+cos(a.x*20+time*0.003))*0.5;
-        b.z += (sin(b.y*20+time*0.003)+cos(b.x*20+time*0.003))*0.5;
+        a.z += (sin(a.y*50+time*0.003)+cos(a.x*50+time*0.003))*0.48;
+        b.z += (sin(b.y*50+time*0.003)+cos(b.x*50+time*0.003))*0.48;
 
         vec3 da = normalize(a-newpos);
         vec3 db = normalize(b-newpos);
@@ -114,9 +114,13 @@ void main( )
 {
     // utiliser l'orientation pour modifier la couleur de base... a completer
     //vec3 MaterialAmbientColor = vec3(0.2,0.2,0.2) * vec3(1, 0.5, 0);
-    if((type1 > 0.5 && type1 < 1.5) || type1 > 2.5){
+    if(type1 > 0.5 && type1 < 1.5){
         vec4 color= texture(texture0, vertex_texcoord)*orientation;
         gl_FragColor = color;
+    }
+    else if(type1 > 2.5){
+        vec4 color= texture(texture0, vertex_texcoord)*orientation;
+        gl_FragColor = color*2;
     }
     else if (type1 > 1.5 && type1 < 2.5)
     {
