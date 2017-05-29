@@ -29,7 +29,7 @@ public:
     {
         //on créer le terrain à partir d'un fichier
         //t = Terrain(1, Point(-48.f, -48.f, 0), Point(48.f, 48.f, 0));
-        t = Terrain("field1.field");
+        t = Terrain("field2.field");
 
         //création du background, "l'eau"
         grid= Mesh(GL_TRIANGLES);
