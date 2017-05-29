@@ -8,7 +8,7 @@ Game::Game(Player& p1, Player& p2, int nbLap){
     nbRound = nbLap;
     score.first = 0;
     score.second = 0;
-    winMesh = read_mesh("proj/projet/data/win.obj");
+    //winMesh = read_mesh("proj/projet/data/win.obj");
     winner = -1;
     std::string s1 = "proj/projet/data/t"+std::to_string(nbLap)+".png";
     textScore1 = read_texture(0, "proj/projet/data/s0.png");
@@ -17,6 +17,8 @@ Game::Game(Player& p1, Player& p2, int nbLap){
     textTour = read_texture(0, "proj/projet/data/tourC.png");
     textTourMax = read_texture(0, s1.c_str());
     textTourCurrent = read_texture(0, "proj/projet/data/t0.png");
+
+    textWin = read_texture(0, "proj/projet/data/p1win.png");
 
     Mesh scoreMesh = Mesh(GL_TRIANGLES);
     scoreMesh.texcoord(0, 0);
@@ -93,6 +95,19 @@ Game::Game(Player& p1, Player& p2, int nbLap){
     d = maxTourMesh.vertex(p1.getPos().x+5, p1.getPos().y-5, 4.1);
     maxTourMesh.triangle(a, b, c);
     maxTourMesh.triangle(a, d, b);
+
+
+    winMesh = Mesh(GL_TRIANGLES);
+    winMesh.texcoord(0, 0);
+    a = winMesh.vertex(-10, -10, 3);
+    winMesh.texcoord(1, 1);
+    b = winMesh.vertex(10, 10, 3);
+    winMesh.texcoord(0, 1);
+    c = winMesh.vertex(-10, 10, 3);
+    winMesh.texcoord(1, 0);
+    d = winMesh.vertex(10, -10, 3);
+    winMesh.triangle(a, b, c);
+    winMesh.triangle(a, d, b);
 }
 
 
@@ -112,12 +127,17 @@ bool Game::winRound(const int idPlayer){
         if (score.first > score.second)
         {
             winner = 1;
+            textWin = read_texture(0, "proj/projet/data/p1Win.png");
         }
         else if (score.first < score.second)
         {
             winner = 2;
+            textWin = read_texture(0, "proj/projet/data/p2Win.png");
         }
-        else winner = 0;
+        else{
+            textWin = read_texture(0, "proj/projet/data/equality.png");
+            winner = 0;
+        }
         return true;
     }
     return false;
@@ -131,4 +151,19 @@ void Game::reloadScoreMesh(){
     textScore1 = read_texture(0, s1.c_str());
     textScore2 = read_texture(0, s2.c_str());
     textTourCurrent = read_texture(0, s3.c_str());
+}
+
+void Game::reinit(){
+    currentRound = 0;
+    score.first = 0;
+    score.second = 0;
+    winner = -1;
+    std::string s1 = "proj/projet/data/t"+std::to_string(nbRound)+".png";
+    textScore1 = read_texture(0, "proj/projet/data/s0.png");
+    textScore2 = read_texture(0, "proj/projet/data/s0.png");
+    textScoreMid = read_texture(0, "proj/projet/data/sm.png");
+    textTour = read_texture(0, "proj/projet/data/tourC.png");
+    textTourMax = read_texture(0, s1.c_str());
+    textTourCurrent = read_texture(0, "proj/projet/data/t0.png");
+
 }

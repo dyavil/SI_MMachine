@@ -217,28 +217,37 @@ public:
                     newturn();
                 }
             }
+            program_use_texture(shaderProgram, "texture0", 0, game.getScoreTexture1());
+            program_uniform(shaderProgram, "transform", scoreTrans);
+            game.getScoreMeshes()[0].draw(shaderProgram);
+            program_use_texture(shaderProgram, "texture0", 0, game.getScoreTexture2());
+            game.getScoreMeshes()[1].draw(shaderProgram);
+            program_use_texture(shaderProgram, "texture0", 0, game.getScoreTextureM());
+            game.getScoreMeshes()[2].draw(shaderProgram);
+            program_uniform(shaderProgram, "transform", tourTrans);
+            program_use_texture(shaderProgram, "texture0", 0, game.getScoreTextureTour());
+            game.getTourMesh().draw(shaderProgram);
+            program_uniform(shaderProgram, "transform", currentTourTrans);
+            program_use_texture(shaderProgram, "texture0", 0, game.getTextureTourCurrent());
+            game.getCurrentTourMesh().draw(shaderProgram);
+            program_uniform(shaderProgram, "transform", maxTourTrans);
+            program_use_texture(shaderProgram, "texture0", 0, game.getTextureTourMax());
+            game.getMaxTourMesh().draw(shaderProgram);
         }
         //en cas de victoire
         else
         {
             camera.lookat(t.getPmin(), t.getPmax());
-            draw(game.getWinMesh(), Scale(10, 10, 10)*RotationX(90), camera);
+            program_uniform(shaderProgram, "transform", Scale(5, 2.5, 2));
+            program_use_texture(shaderProgram, "texture0", 0, game.getTextWin());
+            game.getWinMesh().draw(shaderProgram);
+            if (key_state('n'))
+            {
+                game.reinit();
+                victor = false;
+            }
         }
-        program_uniform(shaderProgram, "transform", scoreTrans);
-        game.getScoreMeshes()[0].draw(shaderProgram);
-        program_use_texture(shaderProgram, "texture0", 0, game.getScoreTexture2());
-        game.getScoreMeshes()[1].draw(shaderProgram);
-        program_use_texture(shaderProgram, "texture0", 0, game.getScoreTextureM());
-        game.getScoreMeshes()[2].draw(shaderProgram);
-        program_uniform(shaderProgram, "transform", tourTrans);
-        program_use_texture(shaderProgram, "texture0", 0, game.getScoreTextureTour());
-        game.getTourMesh().draw(shaderProgram);
-        program_uniform(shaderProgram, "transform", currentTourTrans);
-        program_use_texture(shaderProgram, "texture0", 0, game.getTextureTourCurrent());
-        game.getCurrentTourMesh().draw(shaderProgram);
-        program_uniform(shaderProgram, "transform", maxTourTrans);
-        program_use_texture(shaderProgram, "texture0", 0, game.getTextureTourMax());
-        game.getMaxTourMesh().draw(shaderProgram);
+
         draw(car1, player1_pos, camera);
         draw(car2, player2_pos, camera);
         //std::cout << victor << std::endl;

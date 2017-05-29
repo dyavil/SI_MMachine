@@ -23,6 +23,8 @@ public:
     GLuint getScoreTextureTour(){return textTour;};
     GLuint getTextureTourMax(){return textTourMax;};
     GLuint getTextureTourCurrent(){return textTourCurrent;};
+    GLuint getTextWin(){return textWin;};
+    void reinit();
 
 private:
     Player player1;
@@ -41,6 +43,7 @@ private:
     GLuint textTour;
     GLuint textTourMax;
     GLuint textTourCurrent;
+    GLuint textWin;
     int winner;
 
     void reloadScoreMesh();
