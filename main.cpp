@@ -34,8 +34,8 @@ public:
         //création du background, "l'eau"
         grid= Mesh(GL_TRIANGLES);
 
-        for(int z= -80; z < 72; z++)
-        for(int x= -80; x < 80; x++)
+        for(int z= -150; z < 150; z++)
+        for(int x= -150; x < 150; x++)
         {
             //grid.normal(0, 0, 1);
             grid.vertex(x, z, -1);
@@ -191,7 +191,7 @@ public:
                     newturn();
                 }
                 camera.lookat(Point(player1.getPos().x-17.0, player1.getPos().y-17.0, 0) , Point(player1.getPos().x+17.0, player1.getPos().y+17.0, 0));
-                if (distance(player1.getPos(), Point(player1.getPos().x-17.0, player1.getPos().y-17.0, 0))+4 < distP){
+                if (distance(player1.getPos(), Point(player1.getPos().x-17.0, player1.getPos().y-17.0, 0))+10 < distP){
                     std::cout << "p2 out" << std::endl;
                     victor = game.winRound(1);
                     newturn();
@@ -211,7 +211,7 @@ public:
                     newturn();
                 }
                 camera.lookat(Point(player2.getPos().x-17.0, player2.getPos().y-17.0, 0) , Point(player2.getPos().x+17.0, player2.getPos().y+17.0, 0));
-                if (distance(player2.getPos(), Point(player2.getPos().x-17.0, player2.getPos().y-17.0, 0))+4 < distP){
+                if (distance(player2.getPos(), Point(player2.getPos().x-17.0, player2.getPos().y-17.0, 0))+10 < distP){
                     std::cout << "p1 out" << std::endl;
                     victor = game.winRound(2);
                     newturn();

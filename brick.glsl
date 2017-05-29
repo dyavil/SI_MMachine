@@ -123,7 +123,7 @@ void main( )
         gl_FragColor= /*vec4(MaterialAmbientColor, 1) + */(vec4(color, 1)*orientation); 
     }
     else {
-    gl_FragColor= /*vec4(MaterialAmbientColor, 1) + */(vec4(color, 2)*(floor(orientation * 5)/5)); 
+    gl_FragColor= /*vec4(MaterialAmbientColor, 1) + */(vec4(color, 3.5)*(floor(orientation * 5)/5)); 
     }   // orange opaque
 }
 #endif
