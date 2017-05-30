@@ -18,7 +18,9 @@ Game::Game(Player& p1, Player& p2, int nbLap){
     textTourMax = read_texture(0, s1.c_str());
     textTourCurrent = read_texture(0, "proj/projet/data/t0.png");
 
-    textWin = read_texture(0, "proj/projet/data/p1win.png");
+    textWin = read_texture(0, "proj/projet/data/p1Win.png");
+    textInfo1 = read_texture(0, "proj/projet/data/p1Drown.png");
+    textInfo2 = read_texture(0, "proj/projet/data/p1Out.png");
 
     Mesh scoreMesh = Mesh(GL_TRIANGLES);
     scoreMesh.texcoord(0, 0);
@@ -108,6 +110,18 @@ Game::Game(Player& p1, Player& p2, int nbLap){
     d = winMesh.vertex(10, -10, 3);
     winMesh.triangle(a, b, c);
     winMesh.triangle(a, d, b);
+
+    infoMesh = Mesh(GL_TRIANGLES);
+    infoMesh.texcoord(0, 1);
+    a = infoMesh.vertex(p1.getPos().x-5, p1.getPos().y-5, 4);
+    infoMesh.texcoord(1, 0);
+    b = infoMesh.vertex(p1.getPos().x+5, p1.getPos().y+15, 4);
+    infoMesh.texcoord(1, 1);
+    c = infoMesh.vertex(p1.getPos().x-5, p1.getPos().y+15, 4);
+    infoMesh.texcoord(0, 0);
+    d = infoMesh.vertex(p1.getPos().x+5, p1.getPos().y-5, 4);
+    infoMesh.triangle(a, b, c);
+    infoMesh.triangle(a, d, b);
 }
 
 

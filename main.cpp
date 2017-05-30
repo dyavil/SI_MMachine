@@ -75,6 +75,7 @@ public:
         player2.spawn_at(Point(t.getSpawn().x, t.getSpawn().y+1, 0), Vector(1,0,0), car2min, car2max) ;
         player2.activate() ;
 
+        
 
         mTexture0 = read_texture(0, "proj/projet/data/liege.jpg");
         shaderProgram= read_program("proj/projet/brick.glsl");
@@ -107,7 +108,9 @@ public:
                camera.move(mx);
 
         glUseProgram(shaderProgram);
-
+        static int count = 200;
+        static bool p1 = false;
+        static bool drawn = false;
 
         Transform model= Identity();
         Transform view= camera.view();
@@ -149,6 +152,9 @@ public:
         Transform currentTourTrans = Translation(player1.getPos().x+22.5, player1.getPos().y+14, 0)*RotationZ(-90)*Scale(0.2, 0.2, 0.5);
         Transform maxTourTrans = Translation(player1.getPos().x+25, player1.getPos().y+14, 0)*RotationZ(-90)*Scale(0.2, 0.2, 0.5);
 
+        Transform transInfo = Translation(player1.getPos().x-25, player1.getPos().y+14, 0)*RotationZ(-90)*Scale(0.5, 0.8, 0.5);
+
+
         program_uniform(shaderProgram, "type", 3);
         program_use_texture(shaderProgram, "texture0", 0, game.getScoreTexture1());
         
@@ -172,10 +178,16 @@ public:
             //on test d'abord si les deux joueurs sont toujours sur le terrain
             if(t.getBrickOn(player2.getPos()).getPosition() == -1){
                 victor = game.winRound(1);
+                count--;
+                p1=false;
+                drawn=true;
                 newturn();
             }
             if(t.getBrickOn(player1.getPos()).getPosition() == -1){
                 victor = game.winRound(2);
+                count--;
+                p1=true;
+                drawn=true;
                 newturn();
             }
 
@@ -193,7 +205,10 @@ public:
                 camera.lookat(Point(player1.getPos().x-17.0, player1.getPos().y-17.0, 0) , Point(player1.getPos().x+17.0, player1.getPos().y+17.0, 0));
                 if (distance(player1.getPos(), Point(player1.getPos().x-17.0, player1.getPos().y-17.0, 0))+10 < distP){
                     std::cout << "p2 out" << std::endl;
+                    p1=false;
+                    count--;
                     victor = game.winRound(1);
+                    drawn=false;
                     newturn();
                 }
                 
@@ -202,6 +217,7 @@ public:
                 tourTrans = Translation(player2.getPos().x+22, player2.getPos().y+15, 0)*RotationZ(-90)*Scale(0.4, 0.4, 0.4);
                 currentTourTrans = Translation(player2.getPos().x+22.5, player2.getPos().y+14, 0)*RotationZ(-90)*Scale(0.2, 0.2, 0.5);
                 maxTourTrans = Translation(player2.getPos().x+25, player2.getPos().y+14, 0)*RotationZ(-90)*Scale(0.2, 0.2, 0.5);
+                transInfo = Translation(player2.getPos().x-25, player2.getPos().y+14, 0)*RotationZ(-90)*Scale(0.5, 0.8, 0.5);
 
 
                 if (t.getBrickOn(player2.getPos()).getIsEnd())
@@ -213,10 +229,34 @@ public:
                 camera.lookat(Point(player2.getPos().x-17.0, player2.getPos().y-17.0, 0) , Point(player2.getPos().x+17.0, player2.getPos().y+17.0, 0));
                 if (distance(player2.getPos(), Point(player2.getPos().x-17.0, player2.getPos().y-17.0, 0))+10 < distP){
                     std::cout << "p1 out" << std::endl;
+                    count--;
+                    p1=true;
                     victor = game.winRound(2);
+                    drawn=false;
                     newturn();
                 }
             }
+            if (count < 200 && count > 0)
+            {
+                if (drawn)
+                {
+                    if (p1)
+                    {
+                        program_use_texture(shaderProgram, "texture0", 0, game.getTextInfo1(1));
+                    }
+                    else program_use_texture(shaderProgram, "texture0", 0, game.getTextInfo1(2));
+                }else{
+                    if (p1)
+                    {
+                        program_use_texture(shaderProgram, "texture0", 0, game.getTextInfo2(1));
+                    }
+                    else program_use_texture(shaderProgram, "texture0", 0, game.getTextInfo2(2));
+                }
+                
+                program_uniform(shaderProgram, "transform", transInfo);
+                game.getInfoMesh().draw(shaderProgram);
+                count--;
+            }else count = 200;
             program_use_texture(shaderProgram, "texture0", 0, game.getScoreTexture1());
             program_uniform(shaderProgram, "transform", scoreTrans);
             game.getScoreMeshes()[0].draw(shaderProgram);

@@ -16,6 +16,7 @@ public:
     Mesh & getWinMesh(){return winMesh;};
     Mesh & getCurrentTourMesh(){return currentTourMesh;};
     Mesh & getMaxTourMesh(){return maxTourMesh;};
+    Mesh & getInfoMesh(){return maxTourMesh;};
     std::vector<Mesh> & getScoreMeshes(){return scoreMeshes;};
     GLuint getScoreTexture1(){return textScore1;};
     GLuint getScoreTexture2(){return textScore2;};
@@ -24,6 +25,14 @@ public:
     GLuint getTextureTourMax(){return textTourMax;};
     GLuint getTextureTourCurrent(){return textTourCurrent;};
     GLuint getTextWin(){return textWin;};
+    GLuint getTextInfo1(int idp){
+    	if(idp == 1) textInfo1 = read_texture(0, "proj/projet/data/p1Drown.png");
+    	else textInfo1 = read_texture(0, "proj/projet/data/p2Drown.png");
+    	return textInfo1;};
+    GLuint getTextInfo2(int idp){
+    	if(idp == 1) textInfo2 = read_texture(0, "proj/projet/data/p1Out.png");
+    	else textInfo2 = read_texture(0, "proj/projet/data/p2Out.png");
+    	return textInfo2;};
     void reinit();
 
 private:
@@ -36,6 +45,7 @@ private:
     Mesh tourMesh;
     Mesh currentTourMesh;
     Mesh maxTourMesh;
+    Mesh infoMesh;
     std::vector<Mesh> scoreMeshes;
     GLuint textScore1;
     GLuint textScore2;
@@ -44,6 +54,8 @@ private:
     GLuint textTourMax;
     GLuint textTourCurrent;
     GLuint textWin;
+    GLuint textInfo1;
+    GLuint textInfo2;
     int winner;
 
     void reloadScoreMesh();
