@@ -36,6 +36,7 @@ void main( )
         gl_Position= mvpMatrix * vec4(position, 1);
         posfin = mvpMatrix * vec4(position, 1);
     }
+    //eau
     else if(type == 2){
         color= vec3(0, 0.5, 0.8);
 
@@ -43,10 +44,12 @@ void main( )
 
         gl_Position= mvpMatrix * vec4(newpos, 1);
     }
+    //paneau info
     else if(type == 3){
         color= vec3(1, 1, 1);
         gl_Position= mvpMatrix* transform * vec4(position, 1);
     }
+    //element 3D restant
     else{
         color= vec3(0, 1, 0);
         

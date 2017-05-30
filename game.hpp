@@ -10,8 +10,10 @@ public:
     //Game(){};
     Game(Player& p1, Player& p2, const int nbLap);
     ~Game(){};
-
+    //retourne vrai si la partie est finie
     bool winRound(const int idPlayer);
+
+    //getters
     Mesh & getTourMesh(){return tourMesh;};
     Mesh & getWinMesh(){return winMesh;};
     Mesh & getCurrentTourMesh(){return currentTourMesh;};
@@ -25,6 +27,7 @@ public:
     GLuint getTextureTourMax(){return textTourMax;};
     GLuint getTextureTourCurrent(){return textTourCurrent;};
     GLuint getTextWin(){return textWin;};
+
     GLuint getTextInfo1(int idp){
     	if(idp == 1) textInfo1 = read_texture(0, "proj/projet/data/p1Drown.png");
     	else textInfo1 = read_texture(0, "proj/projet/data/p2Drown.png");
